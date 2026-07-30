@@ -1,0 +1,122 @@
+title = "Detail Proyek"
+url = "/proyek/:id"
+layout = "default"
+meta_title = "{{ project.name }} — Kita Kodingkan"
+meta_description = "{{ project.description | striptags | slice(0, 160) }}"
+==
+function onStart()
+{
+    $id = $this->param('id');
+
+    $project = \ItsAnggara\Crud\Models\Project::with('category')->find($id);
+
+    if (!$project) {
+        return \Response::make(\Cms::render404(), 404);
+    }
+
+    $this['project'] = $project;
+
+    $this['relatedProjects'] = \ItsAnggara\Crud\Models\Project::where('id', '!=', $project->id)
+        ->when($project->category_id, function ($query) use ($project) {
+            $query->where('category_id', $project->category_id);
+        })
+        ->orderBy('created_at', 'desc')
+        ->limit(3)
+        ->get();
+}
+==
+{# ===================== BREADCRUMB ===================== #}
+<section class="border-b border-gray-100">
+    <div class="container mx-auto px-4 py-4">
+        <nav class="flex items-center gap-2 paragraph-14 text-gray-500">
+            <a href="/" class="hover:text-brand-red transition-colors">Beranda</a>
+            <span>/</span>
+            <a href="/proyek" class="hover:text-brand-red transition-colors">Proyek</a>
+            <span>/</span>
+            <span class="text-gray-800 font-medium truncate">{{ project.name }}</span>
+        </nav>
+    </div>
+</section>
+
+{# ===================== HEADER DETAIL ===================== #}
+<section class="container mx-auto px-4 pt-12 pb-8">
+    <div class="max-w-3xl mx-auto text-center">
+        {% if project.category %}
+            <a href="/proyek?category={{ project.category.id }}"
+               class="inline-block heading-12-bold uppercase tracking-widest text-brand-red bg-red-50 px-3 py-1.5 rounded-full mb-5 hover:bg-red-100 transition-colors">
+                {{ project.category.name }}
+            </a>
+        {% endif %}
+        <h1 class="heading-36-bold md:text-4xl lg:text-5xl text-gray-900 tracking-tight">
+            {{ project.name }}
+        </h1>
+        <p class="paragraph-14 text-gray-500 mt-4">
+            Dipublikasikan {{ project.created_at.format('d F Y') }}
+        </p>
+    </div>
+</section>
+
+{# ===================== FEATURED IMAGE ===================== #}
+{% if project.image_url %}
+<section class="container mx-auto px-4 mb-12">
+    <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-lg">
+        <img src="{{ project.image_url | media }}" alt="{{ project.name }}" class="w-full h-64 md:h-96 object-cover">
+    </div>
+</section>
+{% endif %}
+
+{# ===================== CONTENT ===================== #}
+<section class="container mx-auto px-4 pb-20">
+    <div class="max-w-3xl mx-auto">
+        <div class="content-dynamic">
+            {{ project.description | raw }}
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+            <a href="/proyek" class="inline-flex items-center gap-2 heading-16-semibold text-gray-700 hover:text-brand-red transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Kembali ke Semua Proyek
+            </a>
+
+            <a href="/kontak" class="inline-flex items-center gap-2 heading-16-semibold bg-brand-red text-white px-6 py-3 rounded-xl hover:bg-red-700 transition-all duration-200 hover:-translate-y-0.5">
+                Diskusikan Proyek Serupa
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+{# ===================== RELATED PROJECTS ===================== #}
+{% if relatedProjects|length > 0 %}
+<section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="heading-24-bold text-gray-900 mb-8">Proyek Terkait Lainnya</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            {% for related in relatedProjects %}
+                <a href="/proyek/{{ related.id }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="h-44 overflow-hidden bg-gray-100">
+                        {% if related.image_url %}
+                            <img src="{{ related.image_url | media }}" alt="{{ related.name }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center">
+                                <span class="paragraph-14 text-gray-400">Tidak ada gambar</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-5">
+                        <h3 class="heading-16-semibold text-gray-900 group-hover:text-brand-red transition-colors">
+                            {{ related.name }}
+                        </h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}g
