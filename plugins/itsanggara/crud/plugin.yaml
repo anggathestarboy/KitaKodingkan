@@ -1,0 +1,4 @@
+plugin:
+    name: 'itsanggara.crud::lang.plugin.name'
+    description: 'itsanggara.crud::lang.plugin.description'
+    author: 'Its Anggara'
