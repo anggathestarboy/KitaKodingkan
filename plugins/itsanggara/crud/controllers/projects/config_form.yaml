@@ -1,0 +1,10 @@
+name: Project
+form: $/itsanggara/crud/models/project/fields.yaml
+modelClass: ItsAnggara\Crud\Models\Project
+defaultRedirect: itsanggara/crud/projects
+create:
+    redirect: itsanggara/crud/projects/update/:id
+    redirectClose: itsanggara/crud/projects
+update:
+    redirect: itsanggara/crud/projects
+    redirectClose: itsanggara/crud/projects

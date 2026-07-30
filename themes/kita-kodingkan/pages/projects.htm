@@ -4,3 +4,16 @@ layout = "default"
 meta_title = "Portofolio Proyek — Kita Kodingkan"
 meta_description = "Lihat berbagai proyek digital yang sudah kami selesaikan — dari website, aplikasi mobile, hingga sistem manajemen bisnis."
 ==
+function onStart()
+{
+    $this['projects'] = \ItsAnggara\Crud\Models\Project::with('category')->paginate(9);
+}
+==
+<div class="grid grid-cols-3 gap-6">
+    {% for project in projects %}
+        <div>
+            <img src="{{ project.image_url | media }}">
+            <h3>{{ project.name }}</h3>
+        </div>
+    {% endfor %}
+</div>

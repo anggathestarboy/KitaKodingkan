@@ -1,0 +1,6 @@
+list: $/itsanggara/crud/models/project/columns.yaml
+modelClass: ItsAnggara\Crud\Models\Project
+title: Projects
+noRecordsMessage: backend::lang.list.no_records
+showSetup: true
+recordUrl: itsanggara/crud/projects/update/:id

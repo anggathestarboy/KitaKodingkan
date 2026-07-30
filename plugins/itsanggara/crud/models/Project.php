@@ -2,22 +2,25 @@
 
 use Model;
 
-/**
- * Model
- */
 class Project extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
-    
 
-    /**
-     * @var string The database table used by the model.
-     */
     public $table = 'itsanggara_crud_projects';
 
-    /**
-     * @var array Validation rules
-     */
     public $rules = [
+        'name'        => 'required|max:255',
+        'description' => 'nullable',
+        'category_id' => 'nullable|exists:itsanggara_crud_project_categories,id',
+        'image_url'   => 'nullable',
+    ];
+
+    public $fillable = ['name', 'description', 'category_id', 'image_url'];
+
+    public $belongsTo = [
+        'category' => [
+            \ItsAnggara\Crud\Models\ProjectCategory::class,
+            'key' => 'category_id',
+        ],
     ];
 }

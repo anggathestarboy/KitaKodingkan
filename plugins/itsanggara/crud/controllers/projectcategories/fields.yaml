@@ -1,0 +1,6 @@
+fields:
+    name:
+        label: Category Name
+        type: text
+        span: full
+        required: true

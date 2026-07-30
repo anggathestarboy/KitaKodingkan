@@ -1,0 +1,28 @@
+fields:
+    name:
+        label: Project Name
+        type: text
+        span: full
+        required: true
+
+    category:
+        label: Category
+        type: relation
+        span: full
+        nameFrom: name
+        placeholder: "-- Select Category --"
+        emptyOption: "-- Select Category --"
+
+    image_url:
+        label: Project Image
+        type: mediafinder
+        mode: image
+        span: full
+        imageWidth: 200
+        imageHeight: 200
+
+    description:
+        label: Description
+        type: richeditor
+        size: huge
+        span: full

@@ -1,0 +1,4 @@
+name: Category
+form: $/itsanggara/crud/models/projectcategory/fields.yaml
+modelClass: ItsAnggara\Crud\Models\ProjectCategory
+defaultRedirect: itsanggara/crud/projectcategories

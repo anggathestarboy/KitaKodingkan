@@ -1,0 +1,23 @@
+columns:
+    id:
+        label: ID
+        searchable: false
+        sortable: true
+        type: number
+    name:
+        label: Name
+        searchable: true
+        sortable: true
+    category:
+        label: Category
+        relation: category
+        select: name
+        sortable: true
+    image_url:
+        label: Image
+        type: partial
+        path: $/itsanggara/crud/models/project/_column_image.htm
+    created_at:
+        label: Created
+        type: datetime
+        sortable: true

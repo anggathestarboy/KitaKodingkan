@@ -4,6 +4,12 @@ layout = "default"
 meta_title = "Kita Kodingkan — Solusi Digital untuk Bisnis Anda"
 meta_description = "Kami membangun website dan aplikasi yang membantu bisnis Anda berkembang. Murah, cepat, dan tepat sasaran."
 ==
+function onStart()
+{
+    $this['projects'] = \ItsAnggara\Crud\Models\Project::with('category')->limit(3)->get();
+}
+
+==
 <section class="relative py-16 md:py-24 bg-white overflow-hidden">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -11,8 +17,8 @@ meta_description = "Kami membangun website dan aplikasi yang membantu bisnis And
       <div class="flex flex-col items-start space-y-4">
         
       <h1 class="heading-36-bold sm:heading-36-bold md:heading-44-bold text-gray-900 tracking-tight">
-  Kamu Butuh 
-  <span id="typewriter-text" class="text-brand-red inline-block min-h-[1.2em]"></span><span class="text-brand-red animate-pulse font-normal">|</span>
+  Anda Butuh 
+  <span id="typewriter-text" class="text-brand-red inline-block min-h-[1.2em]"></span>
   <br />
   Kita Kodingkan!
 </h1>
@@ -134,47 +140,22 @@ meta_description = "Kami membangun website dan aplikasi yang membantu bisnis And
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="card overflow-hidden rounded-2xl group relative">
+
+      {% for project in projects %}
+      <div class="card overflow-hidden cursor-pointer rounded-2xl group relative">
         <div class="h-64 sm:h-72 w-full overflow-hidden relative">
           <img 
-            src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80" 
+            src="{{ project.image_url | media }}" 
             alt="E-Learning Platform" 
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-            <span class="paragraph-14 text-gray-300">Web Application</span>
-            <h3 class="heading-20-bold text-white">E-Learning Platform</h3>
+            <span class="paragraph-14 text-gray-300">{{ project.category.name }}</span>
+            <h3 class="heading-20-bold text-white">{{ project.name }}</h3>
           </div>
         </div>
       </div>
-
-      <div class="card overflow-hidden rounded-2xl group relative">
-        <div class="h-64 sm:h-72 w-full overflow-hidden relative">
-          <img 
-            src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" 
-            alt="Mobile Banking App" 
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-            <span class="paragraph-14 text-gray-300">Mobile Development</span>
-            <h3 class="heading-20-bold text-white">Mobile Banking App</h3>
-          </div>
-        </div>
-      </div>
-
-      <div class="card overflow-hidden rounded-2xl group relative">
-        <div class="h-64 sm:h-72 w-full overflow-hidden relative">
-          <img 
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" 
-            alt="SaaS Analytics Dashboard" 
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-            <span class="paragraph-14 text-gray-300">Dashboard UI/UX</span>
-            <h3 class="heading-20-bold text-white">SaaS Analytics Dashboard</h3>
-          </div>
-        </div>
-      </div>
+       {% endfor %}
     </div>
   </div>
 </section>

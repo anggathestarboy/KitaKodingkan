@@ -1,0 +1,4 @@
+list: $/itsanggara/crud/models/projectcategory/columns.yaml
+modelClass: ItsAnggara\Crud\Models\ProjectCategory
+title: Project Categories
+recordUrl: itsanggara/crud/projectcategories/update/:id

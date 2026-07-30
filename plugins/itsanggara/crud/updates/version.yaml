@@ -1,8 +1,5 @@
+
 1.0.1:
-    - 'Initialize plugin.'
-1.0.2:
-    - 'Created table itsanggara_crud_project_categories'
+    - "First version"
     - builder_table_create_itsanggara_crud_project_categories.php
-1.0.3:
-    - 'Created table itsanggara_crud_projects'
     - builder_table_create_itsanggara_crud_projects.php
