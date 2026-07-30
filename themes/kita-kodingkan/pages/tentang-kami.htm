@@ -1,0 +1,59 @@
+title = "Tentang Kami"
+url = "/tentang-kami"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "en/tentang-kami"
+==
+
+==
+<?php
+
+url = "/tentang-kami"
+layout = "default"
+title = "About Us"
+==
+<?php
+function onEnd()
+{
+    // Mengambil bahasa yang sedang aktif saat ini (misal: 'id' atau 'en')
+    $this['activeLocale'] = \Winter\Translate\Classes\Translator::instance()->getLocale();
+}
+?>
+==
+<div class="container py-5">
+
+    {# 1. MENGGUNAKAN TWIG FILTER (|_ ) UNTUK TEKS STATIS #}
+    {# Teks ini otomatis bisa diterjemahkan via Backend > Settings > Translation > Messages #}
+    <h1>{{ 'Tentang Kami'|_ }}</h1>
+    
+    <p class="lead">
+        {{ 'Selamat datang di halaman profil resmi kami.'|_ }}
+    </p>
+
+    <hr>
+
+    {# 2. MENGGUNAKAN LOGIK KONDISIONAL BERDASARKAN BAHASA (JIKA STRUKTUR/KONTEN BEDA) #}
+    {% if activeLocale == 'en' %}
+        <div class="alert alert-info">
+            <strong>Notice:</strong> This section is specifically styled for English readers.
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <strong>Informasi:</strong> Bagian ini dikhususkan untuk pembaca berbahasa Indonesia.
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <h3>{{ 'Visi & Misi'|_ }}</h3>
+        <p>
+            {{ 'Memberikan solusi teknologi terbaik dan inovatif untuk semua klien kami.'|_ }}
+        </p>
+    </div>
+
+    <button class="btn btn-primary mt-3">
+        {{ 'Hubungi Kami'|_ }}
+    </button>
+
+</div>
