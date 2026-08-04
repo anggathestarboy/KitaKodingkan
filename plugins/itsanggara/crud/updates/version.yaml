@@ -1,5 +1,10 @@
-
 1.0.1:
-    - "First version"
+    - 'First version'
     - builder_table_create_itsanggara_crud_project_categories.php
     - builder_table_create_itsanggara_crud_projects.php
+1.0.2:
+    - 'Created table itsanggara_crud_contacts'
+    - builder_table_create_itsanggara_crud_contacts.php
+1.0.3:
+    - 'Updated table itsanggara_crud_contacts'
+    - builder_table_update_itsanggara_crud_contacts.php
