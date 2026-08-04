@@ -30,5 +30,8 @@
 1.0.11:
     - 'Seed contact page translations'
     - seed_contact_translations.php
+1.0.12:
+    - 'Seed contact modal translations'
+    - seed_contact_modal_translations.php
 
 

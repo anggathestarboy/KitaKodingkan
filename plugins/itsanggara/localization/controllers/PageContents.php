@@ -25,20 +25,4 @@ class PageContents extends Controller
     {
         return $this->handleError(new \Winter\Storm\Exception\ApplicationException('Creating new content is disabled. Only editing existing content is allowed.'));
     }
-
-    public function formExtendFields($form)
-    {
-        $h2h3Options = [
-            'N'  => 'Normal',
-            'H2' => 'Heading 2',
-            'H3' => 'Heading 3',
-        ];
-
-        if (isset($form->fields['content'])) {
-            $form->fields['content']->options = $h2h3Options;
-        }
-        if (isset($form->fields['content_en'])) {
-            $form->fields['content_en']->options = $h2h3Options;
-        }
-    }
 }

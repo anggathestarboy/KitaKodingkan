@@ -7,28 +7,48 @@ is_hidden = 0
 <?php
 function onSubmit()
 {
-    $name = post('name');
-    $email = post('email');
-    $serviceNeed = post('service_need');
-    $message = post('message');
+    $localization = \ItsAnggara\Localization\Classes\Localization::instance();
+    $locale = $localization->getCurrentLocale();
+
+    $name = trim(post('name'));
+    $email = trim(post('email'));
+    $serviceNeed = trim(post('service_need'));
+    $message = trim(post('message'));
 
     if (!$name || !$email || !$serviceNeed || !$message) {
-        throw new \ValidationException(['name' => 'Semua kolom wajib diisi.']);
+        return [
+            'success' => false,
+            'message' => $localization->translate('contact.error_required', $locale),
+        ];
     }
 
-    \ItsAnggara\Content\Models\ContactSubmission::create([
-        'name'         => $name,
-        'email'        => $email,
-        'service_need' => $serviceNeed,
-        'message'      => $message,
-    ]);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return [
+            'success' => false,
+            'message' => $localization->translate('contact.error_invalid_email', $locale),
+        ];
+    }
 
-    $locale = \ItsAnggara\Localization\Classes\Localization::instance()->getCurrentLocale();
-    $successMsg = \ItsAnggara\Localization\Classes\Localization::instance()->translate('contact.success_message', $locale);
+    try {
+        \ItsAnggara\Content\Models\ContactSubmission::create([
+            'name'         => $name,
+            'email'        => $email,
+            'service_need' => $serviceNeed,
+            'message'      => $message,
+        ]);
+    } catch (\Throwable $e) {
+        return [
+            'success' => false,
+            'message' => $localization->translate('contact.error_failed', $locale),
+        ];
+    }
 
-    \Flash::success($successMsg);
+    $successMsg = $localization->translate('contact.success_message', $locale);
 
-    return \Redirect::refresh();
+    return [
+        'success' => true,
+        'message' => $successMsg,
+    ];
 }
 ?>
 ==
@@ -108,7 +128,7 @@ function onSubmit()
         <!-- Form Card -->
         <div class="lg:col-span-2 bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-xl">
           
-          <form data-request="onSubmit" data-request-flash class="space-y-6">
+          <form id="contact-form" data-request="onSubmit" data-request-success="handleContactResponse(data)" class="space-y-6">
             
             <!-- Name Input -->
             <div>
@@ -191,3 +211,66 @@ function onSubmit()
     </div>
   </div>
 </section>
+
+<!-- Validation Result Modal -->
+<div id="contact-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeContactModal()"></div>
+  <div class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 text-center">
+    <button type="button" onclick="closeContactModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors" aria-label="Close">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <div id="contact-modal-icon" class="w-16 h-16 mx-auto rounded-full flex items-center justify-center"></div>
+
+    <h3 id="contact-modal-title" class="heading-24-bold text-gray-900 mt-5"></h3>
+    <p id="contact-modal-message" class="paragraph-15 text-gray-600 mt-3 leading-relaxed"></p>
+
+    <button type="button" onclick="closeContactModal()" class="mt-7 btn-primary paragraph-16-bold py-3 px-8 rounded-xl w-full justify-center cursor-pointer">
+      {{ 'contact.modal_ok'|t }}
+    </button>
+  </div>
+</div>
+
+<script>
+  function openContactModal(type, message) {
+    const modal = document.getElementById('contact-modal');
+    const icon = document.getElementById('contact-modal-icon');
+    const title = document.getElementById('contact-modal-title');
+    const messageEl = document.getElementById('contact-modal-message');
+
+    if (type === 'success') {
+      icon.className = 'w-16 h-16 mx-auto rounded-full flex items-center justify-center bg-green-100';
+      icon.innerHTML = '<i class="fa-solid fa-check text-3xl text-green-600"></i>';
+      title.textContent = '{{ 'contact.modal_success_title'|t }}';
+    } else {
+      icon.className = 'w-16 h-16 mx-auto rounded-full flex items-center justify-center bg-red-100';
+      icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-3xl text-brand-red"></i>';
+      title.textContent = '{{ 'contact.modal_error_title'|t }}';
+    }
+
+    messageEl.textContent = message;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContactModal() {
+    const modal = document.getElementById('contact-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  function handleContactResponse(data) {
+    const form = document.getElementById('contact-form');
+    if (data && data.success) {
+      openContactModal('success', data.message);
+      if (form) {
+        form.reset();
+      }
+    } else {
+      openContactModal('error', data && data.message ? data.message : '{{ 'contact.error_failed'|t }}');
+    }
+  }
+</script>

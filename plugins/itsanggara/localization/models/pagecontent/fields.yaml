@@ -23,7 +23,6 @@ fields:
         type: richeditor
         span: full
         size: large
-        toolbarButtons: 'paragraphFormat | bold italic underline | align left center right | formatOL formatUL | insertLink | clearFormatting'
 
     title_en:
         label: 'Title (English)'
@@ -35,4 +34,3 @@ fields:
         type: richeditor
         span: full
         size: large
-        toolbarButtons: 'paragraphFormat | bold italic underline | align left center right | formatOL formatUL | insertLink | clearFormatting'
