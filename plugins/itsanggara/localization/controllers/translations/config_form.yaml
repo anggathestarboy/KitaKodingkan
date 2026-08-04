@@ -1,0 +1,10 @@
+name: Translation
+form: ~/plugins/itsanggara/localization/models/translation/fields.yaml
+modelClass: ItsAnggara\Localization\Models\Translation
+defaultRedirect: itsanggara/localization/translations
+create:
+    redirect: itsanggara/localization/translations/update/:id
+    redirectClose: itsanggara/localization/translations
+update:
+    redirect: itsanggara/localization/translations
+    redirectClose: itsanggara/localization/translations

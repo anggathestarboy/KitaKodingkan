@@ -1,0 +1,6 @@
+list: $/itsanggara/content/models/news/columns.yaml
+modelClass: ItsAnggara\Content\Models\News
+title: News
+noRecordsMessage: backend::lang.list.no_records
+showSetup: true
+recordUrl: itsanggara/content/news/update/:id

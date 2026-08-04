@@ -1,0 +1,30 @@
+fields:
+    group:
+        label: Group
+        type: dropdown
+        options:
+            header: Header
+            footer: Footer
+            hero: Hero
+        placeholder: "-- Pilih Group --"
+        span: left
+        required: true
+
+    key:
+        label: Key
+        type: text
+        span: right
+        required: true
+        comment: 'Contoh: nav_home, footer_title_services'
+
+    value_id:
+        label: 'Indonesia (id)'
+        type: textarea
+        size: small
+        span: full
+
+    value_en:
+        label: 'English (en)'
+        type: textarea
+        size: small
+        span: full

@@ -1,30 +1,30 @@
-title = "Detail Proyek"
-url = "/proyek/:id"
+title = "Detail Artikel"
+url = "/blog/:id"
 layout = "default"
-meta_title = "{{ project | localized('name') }} — Kita Kodingkan"
-meta_description = "{{ project | localized('description') | striptags | slice(0, 160) }}"
+meta_title = "{{ news | localized('title') }} — Kita Kodingkan"
+meta_description = "{{ news | localized('description') | striptags | slice(0, 160) }}"
 ==
 function onStart()
 {
     $id = $this->param('id');
 
-    $project = \ItsAnggara\Crud\Models\Project::with('category')->find($id);
+    $news = \ItsAnggara\Content\Models\News::with('category')->find($id);
 
-    if (!$project) {
+    if (!$news) {
         return \Response::make(\Cms::render404(), 404);
     }
 
-    $this['project'] = $project;
+    $this['news'] = $news;
 
-    $this['relatedProjects'] = \ItsAnggara\Crud\Models\Project::where('id', '!=', $project->id)
-        ->when($project->category_id, function ($query) use ($project) {
-            $query->where('category_id', $project->category_id);
+    $this['relatedNews'] = \ItsAnggara\Content\Models\News::where('id', '!=', $news->id)
+        ->when($news->category_id, function ($query) use ($news) {
+            $query->where('category_id', $news->category_id);
         })
         ->orderBy('created_at', 'desc')
         ->limit(3)
         ->get();
 
-    $description = (string) \ItsAnggara\Localization\Classes\Localization::instance()->localizedValue($project, 'description');
+    $description = (string) \ItsAnggara\Localization\Classes\Localization::instance()->localizedValue($news, 'description');
     $tableOfContents = [];
     $contentHtml = '';
 
@@ -95,13 +95,12 @@ function onStart()
     }
 
     $this['tableOfContents'] = $tableOfContents;
-    $this['projectContent'] = $contentHtml;
+    $this['newsContent'] = $contentHtml;
 
     $wordCount = str_word_count(strip_tags($description));
     $this['readTime'] = max(1, (int) ceil($wordCount / 200));
 
-    $attributes = $project->getAttributes();
-    $this['authorName'] = $attributes['author_name'] ?? $attributes['author'] ?? null;
+    $this['authorName'] = $news->author;
 }
 ==
 <section class="relative overflow-hidden bg-gradient-to-br from-red-50 via-rose-50 to-red-100">
@@ -117,17 +116,17 @@ function onStart()
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <a href="{{ localeUrl('/proyek') }}" class="hover:text-red-700 transition-colors">Proyek</a>
+            <a href="{{ localeUrl('/blog') }}" class="hover:text-red-700 transition-colors">Blog</a>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <span class="text-red-700 font-medium truncate">{{ project | localized('name') }}</span>
+            <span class="text-red-700 font-medium truncate">{{ news | localized('title') }}</span>
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
                 <h1 class="heading-32-bold md:text-4xl lg:text-[2.75rem] text-gray-900 tracking-tight leading-tight mb-8">
-                    {{ project | localized('name') }}
+                    {{ news | localized('title') }}
                 </h1>
 
                 <div class="flex flex-wrap gap-x-10 gap-y-5">
@@ -139,20 +138,20 @@ function onStart()
                     {% endif %}
                     <div>
                         <p class="paragraph-12 text-gray-500 mb-1">Publication Date</p>
-                        <p class="heading-14-bold text-gray-900 uppercase">{{ project.created_at.format('d M Y') }}</p>
+                        <p class="heading-14-bold text-gray-900 uppercase">{{ news.created_at.format('d M Y') }}</p>
                     </div>
-                    {% if project.category %}
+                    {% if news.category %}
                         <div>
                             <p class="paragraph-12 text-gray-500 mb-1">Category</p>
-                            <p class="heading-14-bold text-gray-900 uppercase">{{ project.category | localized('name') }}</p>
+                            <p class="heading-14-bold text-gray-900 uppercase">{{ news.category | localized('name') }}</p>
                         </div>
                     {% endif %}
                 </div>
             </div>
 
-            {% if project.image_url %}
+            {% if news.image_url %}
                 <div class="rounded-3xl overflow-hidden shadow-xl">
-                    <img src="{{ project.image_url | media }}" alt="{{ project | localized('name') }}" class="w-full h-64 md:h-96 object-cover">
+                    <img src="{{ news.image_url | media }}" alt="{{ news | localized('title') }}" class="w-full h-64 md:h-96 object-cover">
                 </div>
             {% endif %}
         </div>
@@ -160,7 +159,7 @@ function onStart()
 </section>
 
 <section
-    x-data="projectActions()"
+    x-data="articleActions()"
     class="border-b border-gray-100"
 >
     <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
@@ -169,7 +168,7 @@ function onStart()
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Diperbarui: {{ project.updated_at.format('d F Y') }}
+                Diperbarui: {{ news.updated_at.format('d F Y') }}
             </span>
             <span class="flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,13 +300,12 @@ function onStart()
 
         <div class="min-w-0">
             <div class="content-dynamic">
-                {{ projectContent | raw }}
+                {{ newsContent | raw }}
             </div>
 
             <div class="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
-             
                 <a href="{{ localeUrl('/kontak') }}" class="inline-flex items-center gap-2 heading-16-semibold bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 transition-all duration-200 hover:-translate-y-0.5">
-                    Diskusikan Proyek Serupa
+                    Konsultasikan Kebutuhan Anda
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -317,17 +315,17 @@ function onStart()
     </div>
 </section>
 
-{% if relatedProjects|length > 0 %}
+{% if relatedNews|length > 0 %}
 <section class="bg-gray-50 py-16">
     <div class="container mx-auto px-4">
-        <h2 class="heading-24-bold text-gray-900 mb-8">Proyek Terkait Lainnya</h2>
+        <h2 class="heading-24-bold text-gray-900 mb-8">Artikel Terkait Lainnya</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {% for related in relatedProjects %}
-                <a href="{{ localeUrl('/proyek/' ~ related.id) }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            {% for related in relatedNews %}
+                <a href="{{ localeUrl('/blog/' ~ related.id) }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="h-44 overflow-hidden bg-gray-100">
                         {% if related.image_url %}
-                            <img src="{{ related.image_url | media }}" alt="{{ related | localized('name') }}"
+                            <img src="{{ related.image_url | media }}" alt="{{ related | localized('title') }}"
                                  class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
                         {% else %}
                             <div class="w-full h-full flex items-center justify-center">
@@ -337,7 +335,7 @@ function onStart()
                     </div>
                     <div class="p-5">
                         <h3 class="heading-16-semibold text-gray-900 group-hover:text-red-700 transition-colors">
-                            {{ related | localized('name') }}
+                            {{ related | localized('title') }}
                         </h3>
                         {% if related.description %}
                             <p class="paragraph-14 text-gray-500 mt-2 line-clamp-3">
@@ -354,7 +352,7 @@ function onStart()
 
 <script>
 document.addEventListener('alpine:init', () => {
-    Alpine.data('projectActions', () => ({
+    Alpine.data('articleActions', () => ({
         copied: false,
         shareOpen: false,
 

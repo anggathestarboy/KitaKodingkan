@@ -1,0 +1,4 @@
+plugin:
+    name: 'itsanggara.content::lang.plugin.name'
+    description: 'itsanggara.content::lang.plugin.description'
+    author: 'Its Anggara'

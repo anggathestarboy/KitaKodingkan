@@ -173,7 +173,7 @@ html {
     margin-top: 0;
 }
 .content-dynamic a {
-    color: var(--color-cbGreen-2);
+    color: var(--color-brand-red);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
@@ -684,5 +684,12 @@ html {
     .paragraph-14-bold {
         font-size: 14px;
         line-height: 24px;
+    }
+}
+
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
     }
 }

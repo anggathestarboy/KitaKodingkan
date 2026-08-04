@@ -1,0 +1,10 @@
+name: News
+form: $/itsanggara/content/models/news/fields.yaml
+modelClass: ItsAnggara\Content\Models\News
+defaultRedirect: itsanggara/content/news
+create:
+    redirect: itsanggara/content/news/update/:id
+    redirectClose: itsanggara/content/news
+update:
+    redirect: itsanggara/content/news
+    redirectClose: itsanggara/content/news

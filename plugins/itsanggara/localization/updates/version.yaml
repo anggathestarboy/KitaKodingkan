@@ -1,0 +1,20 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table itsanggara_localization_translations'
+    - create_translations_table.php
+1.0.3:
+    - 'Added English columns to news'
+    - add_locale_columns_news.php
+1.0.4:
+    - 'Added English columns to projects'
+    - add_locale_columns_projects.php
+1.0.5:
+    - 'Added English columns to categories'
+    - add_locale_columns_categories.php
+1.0.6:
+    - 'Seeded header and footer translations'
+    - seed_translations.php
+1.0.7:
+    - 'Recreate translations table if missing'
+    - recreate_translations_table.php

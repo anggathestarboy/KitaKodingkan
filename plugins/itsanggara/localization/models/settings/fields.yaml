@@ -1,0 +1,9 @@
+fields:
+    default_locale:
+        label: Bahasa default (tanpa prefix URL)
+        type: dropdown
+        options:
+            id: Indonesia (id)
+            en: English (en)
+        default: id
+        commentAbove: 'Bahasa yang tidak memakai prefix. Bahasa Inggris memakai prefix /en/ pada URL.'

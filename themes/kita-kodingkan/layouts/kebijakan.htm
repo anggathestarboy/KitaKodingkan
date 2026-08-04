@@ -1,7 +1,7 @@
 description = "Main layout"
 ==
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ currentLocale() == 'en' ? 'en' : 'id' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,26 +31,22 @@ description = "Main layout"
                 </a>
 
 
-                <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
-                    <a href="/" class="nav-link paragraph-16-bold">Beranda</a>
-                    <a href="/tentang-kami" class="nav-link paragraph-16-bold">Tentang</a>
-                    <a href="/layanan-kami" class="nav-link paragraph-16-bold">Kebijakan</a>
-                    <a href="/proyek" class="nav-link paragraph-16-bold">Proyek</a>
-                    <a href="/blog" class="nav-link paragraph-16-bold">Blog</a>
+                <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+                    <a href="{{ localeUrl('/') }}" class="nav-link paragraph-16-bold">{{ 'header.nav_home'|t }}</a>
+                    <a href="{{ localeUrl('/tentang-kami') }}" class="nav-link paragraph-16-bold">{{ 'header.nav_about'|t }}</a>
+                    <a href="{{ localeUrl('/kebijakan-privasi') }}" class="nav-link paragraph-16-bold">{{ 'header.nav_privacy'|t }}</a>
+                    <a href="{{ localeUrl('/proyek') }}" class="nav-link paragraph-16-bold">{{ 'header.nav_projects'|t }}</a>
+                    <a href="{{ localeUrl('/blog') }}" class="nav-link paragraph-16-bold">{{ 'header.nav_blog'|t }}</a>
                 </nav>
 
-             
-                <div class="hidden md:flex items-center gap-4">
-                    <!-- Language Switcher -->
-                    <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden text-sm font-semibold">
-                        <button class="px-3 py-1.5 bg-brand-red text-white transition-colors paragraph-14-bold" aria-label="Bahasa Indonesia">ID</button>
-                        <button class="px-3 py-1.5 text-gray-500 hover:bg-gray-50 transition-colors paragraph-14-bold" aria-label="English">EN</button>
-                    </div>
-                    <a href="/hubungi-kami" class="btn-primary paragraph-14-bold !px-5 !py-2.5">Hubungi Kami</a>
+              
+                <div class="hidden lg:flex items-center gap-4">
+                    {% partial 'site/language-switcher' %}
+                    <a href="{{ localeUrl('/hubungi-kami') }}" class="btn-primary paragraph-14-bold !px-5 !py-2.5">{{ 'header.cta_contact'|t }}</a>
                 </div>
 
               
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 hover:text-red-600 transition-colors" aria-label="Toggle menu" aria-expanded="false">
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 transition-colors" aria-label="Toggle menu" aria-expanded="false">
                     <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -61,20 +57,17 @@ description = "Main layout"
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pb-4 shadow-lg">
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 px-4 pb-4 shadow-lg">
             <nav class="flex flex-col gap-1 pt-3" aria-label="Mobile navigation">
-                <a href="/" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">Beranda</a>
-                <a href="/tentang" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">Tentang</a>
-                <a href="/layanan" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">Layanan</a>
-                <a href="/proyek" class="px-3 py-2.5 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">Proyek</a>
-                <a href="/blog" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">Blog</a>
+                <a href="{{ localeUrl('/') }}" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">{{ 'header.nav_home'|t }}</a>
+                <a href="{{ localeUrl('/tentang') }}" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">{{ 'header.nav_about'|t }}</a>
+                <a href="{{ localeUrl('/layanan') }}" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">{{ 'header.nav_services'|t }}</a>
+                <a href="{{ localeUrl('/proyek') }}" class="px-3 py-2.5 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">{{ 'header.nav_projects'|t }}</a>
+                <a href="{{ localeUrl('/blog') }}" class="px-3 py-2.5 text-gray-700 font-medium hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors">{{ 'header.nav_blog'|t }}</a>
             </nav>
             <div class="flex items-center gap-3 mt-4 pt-4 border-t border-gray-100">
-                <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden text-sm font-semibold">
-                    <button class="px-3 py-1.5 bg-brand-red text-white paragraph-14-bold">ID</button>
-                    <button class="px-3 py-1.5 text-gray-500 hover:bg-gray-50 paragraph-14-bold">EN</button>
-                </div>
-                <a href="/hubungi-kami" class="btn-primary paragraph-14-bold !px-4 !py-2">Hubungi Kami</a>
+                {% partial 'site/language-switcher' %}
+                <a href="{{ localeUrl('/hubungi-kami') }}" class="btn-primary paragraph-14-bold !px-4 !py-2">{{ 'header.cta_contact'|t }}</a>
             </div>
         </div>
     </header>
@@ -93,7 +86,7 @@ description = "Main layout"
                 <div class="lg:col-span-1">
                     <span class="heading-24-bold text-white">Kita Kodingkan</span>
                     <p class="mt-4 text-gray-300 paragraph-14 leading-relaxed">
-                        Kami membantu bisnis Anda tumbuh lewat solusi digital yang sederhana, modern, dan tepat sasaran.
+                        {{ 'footer.footer_tagline'|t }}
                     </p>
                     
                     <div class="flex items-center gap-4 mt-6">
@@ -111,43 +104,43 @@ description = "Main layout"
 
               
                 <div>
-                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">Layanan</h3>
+                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_services'|t }}</h3>
                     <ul class="space-y-3 paragraph-14">
-                        <li><a href="#" class="text-gray-200 transition-colors">Pembuatan Website</a></li>
-                        <li><a href="#" class="text-gray-200 transition-colors">Aplikasi Mobile</a></li>
-                        <li><a href="#" class="text-gray-200 transition-colors">Desain UI/UX</a></li>
-                        <li><a href="#" class="text-gray-200 transition-colors">Sistem Manajemen</a></li>
-                        <li><a href="#" class="text-gray-200 transition-colors">Konsultasi Digital</a></li>
+                        <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_web'|t }}</a></li>
+                        <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_mobile'|t }}</a></li>
+                        <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_uiux'|t }}</a></li>
+                        <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_system'|t }}</a></li>
+                        <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_consult'|t }}</a></li>
                     </ul>
                 </div>
                 
 
 
                 <div>
-                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">Perusahaan</h3>
+                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_company'|t }}</h3>
                     <ul class="space-y-3 paragraph-14">
-                        <li><a href="/tentang" class="text-gray-200 transition-colors">Tentang Kami</a></li>
-                        <li><a href="/proyek" class="text-gray-200 transition-colors">Portofolio</a></li>
-                        <li><a href="/blog" class="text-gray-200 transition-colors">Blog</a></li>
-                        <li><a href="/karir" class="text-gray-200 transition-colors">Karir</a></li>
-                        <li><a href="/hubungi-kami" class="text-gray-200 transition-colors">Kontak</a></li>
+                        <li><a href="{{ localeUrl('/tentang') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_about'|t }}</a></li>
+                        <li><a href="{{ localeUrl('/proyek') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_portfolio'|t }}</a></li>
+                        <li><a href="{{ localeUrl('/blog') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_blog'|t }}</a></li>
+                        <li><a href="{{ localeUrl('/karir') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_career'|t }}</a></li>
+                        <li><a href="{{ localeUrl('/hubungi-kami') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_contact'|t }}</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">Hubungi Kami</h3>
+                    <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_contact'|t }}</h3>
                     <ul class="space-y-4 paragraph-14">
                         <li class="flex items-start gap-3">
                             <svg class="w-4 h-4 text-gray-200 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            <span class="text-gray-200" >halo@kitakodingkan.com</span>
+                            <span class="text-gray-200" >{{ 'footer.footer_contact_email'|t }}</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <svg class="w-4 h-4 text-gray-200 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            <span class="text-gray-200" >+62 812-3456-7890</span>
+                            <span class="text-gray-200" >{{ 'footer.footer_contact_phone'|t }}</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <svg class="w-4 h-4 text-gray-200 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            <span class="text-gray-200" >Jakarta, Indonesia</span>
+                            <span class="text-gray-200" >{{ 'footer.footer_contact_address'|t }}</span>
                         </li>
                     </ul>
                 </div>
@@ -155,10 +148,10 @@ description = "Main layout"
 
    
             <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-6 paragraph-14">
-                <p class="text-white">&copy; 2026 <span class="text-white font-semibold">Kita Kodingkan</span>. Semua hak dilindungi.</p>
+                <p class="text-white">{{ 'footer.footer_copyright'|t }}</p>
                 <div class="flex items-center gap-6">
-                    <a href="#" class="text-white transition-colors">Kebijakan Privasi</a>
-                    <a href="#" class="text-white transition-colors">Syarat & Ketentuan</a>
+                    <a href="{{ localeUrl('/kebijakan-privasi') }}" class="text-white transition-colors">{{ 'footer.footer_privacy'|t }}</a>
+                    <a href="#" class="text-white transition-colors">{{ 'footer.footer_terms'|t }}</a>
                 </div>
             </div>
         </div>

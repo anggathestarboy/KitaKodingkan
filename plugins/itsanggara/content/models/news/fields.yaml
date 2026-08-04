@@ -1,6 +1,6 @@
 fields:
-    name:
-        label: Project Name
+    title:
+        label: Title
         type: text
         span: full
         required: true
@@ -8,13 +8,18 @@ fields:
     category:
         label: Category
         type: relation
-        span: full
+        span: left
         nameFrom: name
         placeholder: "-- Select Category --"
         emptyOption: "-- Select Category --"
 
+    author:
+        label: Author
+        type: text
+        span: right
+
     image_url:
-        label: Project Image
+        label: News Image
         type: mediafinder
         mode: image
         span: full
@@ -27,8 +32,8 @@ fields:
         size: huge
         span: full
 
-    name_en:
-        label: 'Project Name (English)'
+    title_en:
+        label: 'Title (English)'
         type: text
         span: full
         comment: 'Opsional. Dipakai saat situs ditampilkan dalam bahasa Inggris.'

@@ -1,0 +1,27 @@
+columns:
+    id:
+        label: ID
+        searchable: false
+        sortable: true
+        type: number
+    title:
+        label: Title
+        searchable: true
+        sortable: true
+    category:
+        label: Category
+        relation: category
+        select: name
+        sortable: true
+    author:
+        label: Author
+        searchable: true
+        sortable: true
+    image_url:
+        label: Image
+        type: partial
+        path: $/itsanggara/content/models/news/_column_image.htm
+    created_at:
+        label: Created
+        type: datetime
+        sortable: true

@@ -1,0 +1,15 @@
+columns:
+    group:
+        label: Group
+        searchable: true
+        sortable: true
+    key:
+        label: Key
+        searchable: true
+        sortable: true
+    value_id:
+        label: 'Indonesia (id)'
+        searchable: true
+    value_en:
+        label: 'English (en)'
+        searchable: true

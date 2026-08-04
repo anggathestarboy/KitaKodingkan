@@ -1,0 +1,4 @@
+plugin:
+    name: 'itsanggara.localization::lang.plugin.name'
+    description: 'itsanggara.localization::lang.plugin.description'
+    author: 'Its Anggara'

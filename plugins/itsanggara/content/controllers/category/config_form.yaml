@@ -1,0 +1,10 @@
+name: Category
+form: $/itsanggara/content/models/category/fields.yaml
+modelClass: ItsAnggara\Content\Models\Category
+defaultRedirect: itsanggara/content/category
+create:
+    redirect: itsanggara/content/category/update/:id
+    redirectClose: itsanggara/content/category
+update:
+    redirect: itsanggara/content/category
+    redirectClose: itsanggara/content/category

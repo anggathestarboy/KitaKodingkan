@@ -9,13 +9,15 @@ class Project extends Model
     public $table = 'itsanggara_crud_projects';
 
     public $rules = [
-        'name'        => 'required|max:255',
-        'description' => 'nullable',
-        'category_id' => 'nullable|exists:itsanggara_crud_project_categories,id',
-        'image_url'   => 'nullable',
+        'name'           => 'required|max:255',
+        'description'    => 'nullable',
+        'name_en'        => 'nullable|max:255',
+        'description_en' => 'nullable',
+        'category_id'    => 'nullable|exists:itsanggara_crud_project_categories,id',
+        'image_url'      => 'nullable',
     ];
 
-    public $fillable = ['name', 'description', 'category_id', 'image_url'];
+    public $fillable = ['name', 'description', 'name_en', 'description_en', 'category_id', 'image_url'];
 
     public $belongsTo = [
         'category' => [

@@ -1,0 +1,11 @@
+title: Translations
+modelClass: ItsAnggara\Localization\Models\Translation
+list: ~/plugins/itsanggara/localization/models/translation/columns.yaml
+recordUrl: itsanggara/localization/translations/update/:id
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

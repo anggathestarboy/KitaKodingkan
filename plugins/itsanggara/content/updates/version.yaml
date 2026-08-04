@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table itsanggara_content_news_categories'
+    - builder_table_create_itsanggara_content_news_categories.php
+1.0.3:
+    - 'Created table itsanggara_content_news'
+    - builder_table_create_itsanggara_content_news.php
+1.0.4:
+    - 'Updated table itsanggara_content_news_categories'
+    - builder_table_update_itsanggara_content_news_categories.php
+1.0.5:
+    - 'Updated table itsanggara_content_news'
+    - builder_table_update_itsanggara_content_news.php

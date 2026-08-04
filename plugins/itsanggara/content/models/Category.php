@@ -1,12 +1,12 @@
-<?php namespace ItsAnggara\Crud\Models;
+<?php namespace ItsAnggara\Content\Models;
 
 use Model;
 
-class ProjectCategory extends Model
+class Category extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
-    public $table = 'itsanggara_crud_project_categories';
+    public $table = 'itsanggara_content_news_categories';
 
     public $rules = [
         'name'    => 'required|max:255',
@@ -16,6 +16,6 @@ class ProjectCategory extends Model
     public $fillable = ['name', 'name_en'];
 
     public $hasMany = [
-        'projects' => \ItsAnggara\Crud\Models\Project::class,
+        'news' => \ItsAnggara\Content\Models\News::class,
     ];
 }

@@ -1,313 +1,122 @@
 title = "Blog"
 url = "/blog"
 layout = "default"
+description = "Artikel, tips, dan panduan seputar dunia digital untuk pemilik bisnis. Bahasa sederhana, langsung bisa dipraktikkan."
 meta_title = "Blog — Tips Digital untuk Bisnis | Kita Kodingkan"
 meta_description = "Artikel, tips, dan panduan seputar dunia digital untuk pemilik bisnis. Bahasa sederhana, langsung bisa dipraktikkan."
 ==
+<?php
+function onStart()
+{
+    $allNews = \ItsAnggara\Content\Models\News::with('category')->orderBy('created_at', 'desc')->get();
 
-<!-- Page Header -->
-<section class="bg-gradient-to-br from-gray-900 to-gray-800 py-20 md:py-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span class="inline-block text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">Blog & Artikel</span>
-        <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-5">
-            Tips Digital yang<br><span class="text-red-400">Mudah Dipahami</span>
-        </h1>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
-            Kami tulis artikel untuk pemilik bisnis, bukan untuk programmer. Bahasa sederhana, langsung bisa diterapkan.
-        </p>
-        <!-- Search bar -->
-        <div class="max-w-md mx-auto relative">
-            <input type="search" placeholder="Cari artikel..." class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl px-5 py-3 pr-12 focus:outline-none focus:border-red-400 focus:bg-white/15 transition-all">
-            <svg class="absolute right-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        </div>
-    </div>
-</section>
+    $this['featured']  = $allNews->first();
+    $this['restNews']  = $allNews->slice(1);
+    $this['totalNews'] = $allNews->count();
+}
+?>
+==
+{% partial 'site/hero' %}
 
-<!-- Category Filter -->
-<section class="bg-white border-b border-gray-100 sticky top-16 z-40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-2 overflow-x-auto py-4">
-            <button class="shrink-0 px-5 py-2 bg-red-600 text-white font-semibold text-sm rounded-full">Semua</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">Tips Bisnis</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">Website</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">Aplikasi Mobile</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">E-Commerce</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">Desain</button>
-            <button class="shrink-0 px-5 py-2 text-gray-600 font-semibold text-sm rounded-full hover:bg-gray-100 transition-colors">Tutorial</button>
-        </div>
-    </div>
-</section>
-
-<!-- Blog Content -->
-<section class="py-16 md:py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-            <!-- ===== BLOG LIST (LEFT/MAIN) ===== -->
-            <div class="lg:col-span-2 space-y-7">
-
-                <!-- Featured Post -->
-                <article class="group card overflow-hidden">
-                    <div class="md:flex">
-                        <div class="md:w-2/5 h-52 md:h-auto bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0 flex items-center justify-center relative">
-                            <span class="text-6xl">🌐</span>
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Featured</span>
-                            </div>
-                        </div>
-                        <div class="p-7">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-xs bg-red-50 text-red-600 font-semibold px-2.5 py-1 rounded-full">Tips Bisnis</span>
-                                <span class="text-gray-400 text-xs">12 Januari 2025</span>
-                                <span class="text-gray-400 text-xs">•</span>
-                                <span class="text-gray-400 text-xs">5 menit baca</span>
-                            </div>
-                            <h2 class="font-black text-gray-900 text-2xl mb-3 group-hover:text-red-600 transition-colors leading-tight">
-                                <a href="/blog/kenapa-bisnis-butuh-website">Kenapa Bisnis Anda WAJIB Punya Website di 2025? Ini 7 Alasannya</a>
-                            </h2>
-                            <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                                Di era digital sekarang, tidak punya website sama seperti toko yang tidak punya papan nama. Pelanggan zaman sekarang selalu "googling" dulu sebelum beli. Kalau bisnis Anda tidak muncul di Google, Anda kehilangan banyak peluang tanpa sadar...
-                            </p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-600 text-xs">AK</div>
-                                    <span class="text-gray-600 text-sm font-medium">Angga Kodingkan</span>
-                                </div>
-                                <a href="/blog/kenapa-bisnis-butuh-website" class="text-red-600 font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all">
-                                    Baca <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                                </a>
-                            </div>
-                        </div>
+{# ===================== FEATURED ARTICLE ===================== #}
+{% if featured %}
+<section class="container mx-auto px-4 -mt-16 relative z-10">
+    <a href="{{ localeUrl('/blog/' ~ featured.id) }}" class="group block bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+        <div class="flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-64 md:h-auto overflow-hidden bg-gray-100">
+                {% if featured.image_url %}
+                    <img src="{{ featured.image_url | media }}" alt="{{ featured.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                        <span class="paragraph-14 text-gray-400">Tidak ada gambar</span>
                     </div>
-                </article>
-
-                <!-- Blog Card 2 -->
-                <article class="group card">
-                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-5xl relative">
-                        📱
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">Aplikasi Mobile</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-gray-400 text-xs">28 Desember 2024</span>
-                            <span class="text-gray-400 text-xs">•</span>
-                            <span class="text-gray-400 text-xs">7 menit baca</span>
-                        </div>
-                        <h2 class="font-black text-gray-900 text-xl mb-2 group-hover:text-red-600 transition-colors leading-snug">
-                            <a href="/blog/aplikasi-atau-website">Mending Buat Aplikasi Mobile atau Website? Ini Bedanya dan Kapan Masing-Masing Dipakai</a>
-                        </h2>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                            Banyak pebisnis yang bingung saat ingin go-digital: harus buat website atau aplikasi mobile? Jawabannya tergantung pada kebutuhan bisnis, target pengguna, dan anggaran Anda...
-                        </p>
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-600 text-xs">RP</div>
-                                <span class="text-gray-600 text-sm font-medium">Rizky Pratama</span>
-                            </div>
-                            <a href="/blog/aplikasi-atau-website" class="text-red-600 font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all">
-                                Baca <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Blog Card 3 -->
-                <article class="group card">
-                    <div class="h-48 bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-5xl relative">
-                        💡
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">E-Commerce</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-gray-400 text-xs">15 Desember 2024</span>
-                            <span class="text-gray-400 text-xs">•</span>
-                            <span class="text-gray-400 text-xs">4 menit baca</span>
-                        </div>
-                        <h2 class="font-black text-gray-900 text-xl mb-2 group-hover:text-red-600 transition-colors leading-snug">
-                            <a href="/blog/cara-jualan-online">5 Cara Mudah Mulai Jualan Online untuk UMKM yang Belum Paham Teknologi</a>
-                        </h2>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                            Tidak perlu jago coding untuk mulai jualan online. Ada banyak platform dan cara mudah yang bisa langsung Anda gunakan hari ini juga, bahkan dengan modal minimal...
-                        </p>
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center font-bold text-teal-600 text-xs">SN</div>
-                                <span class="text-gray-600 text-sm font-medium">Sari Nurhayati</span>
-                            </div>
-                            <a href="/blog/cara-jualan-online" class="text-red-600 font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all">
-                                Baca <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Blog Card 4 -->
-                <article class="group card">
-                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-5xl relative">
-                        🎨
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">Desain</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-gray-400 text-xs">3 Desember 2024</span>
-                            <span class="text-gray-400 text-xs">•</span>
-                            <span class="text-gray-400 text-xs">6 menit baca</span>
-                        </div>
-                        <h2 class="font-black text-gray-900 text-xl mb-2 group-hover:text-red-600 transition-colors leading-snug">
-                            <a href="/blog/desain-website-yang-bagus">7 Ciri Website yang Bikin Pengunjung Betah dan Mau Beli</a>
-                        </h2>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                            Website yang bagus bukan cuma soal tampilan yang indah — tapi juga soal kemudahan penggunaan, kecepatan loading, dan kepercayaan yang dipancarkan kepada pengunjung baru...
-                        </p>
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600 text-xs">AK</div>
-                                <span class="text-gray-600 text-sm font-medium">Angga Kodingkan</span>
-                            </div>
-                            <a href="/blog/desain-website-yang-bagus" class="text-red-600 font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all">
-                                Baca <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Blog Card 5 -->
-                <article class="group card">
-                    <div class="h-48 bg-gradient-to-br from-pink-400 to-red-500 flex items-center justify-center text-5xl relative">
-                        📊
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">Tips Bisnis</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-gray-400 text-xs">20 November 2024</span>
-                            <span class="text-gray-400 text-xs">•</span>
-                            <span class="text-gray-400 text-xs">8 menit baca</span>
-                        </div>
-                        <h2 class="font-black text-gray-900 text-xl mb-2 group-hover:text-red-600 transition-colors leading-snug">
-                            <a href="/blog/digital-marketing-untuk-umkm">Panduan Digital Marketing Sederhana untuk UMKM yang Baru Mulai</a>
-                        </h2>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                            Digital marketing tidak harus rumit dan mahal. Dengan langkah-langkah sederhana yang kami jelaskan di sini, Anda bisa mulai menarik pelanggan baru lewat internet...
-                        </p>
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center font-bold text-pink-600 text-xs">RP</div>
-                                <span class="text-gray-600 text-sm font-medium">Rizky Pratama</span>
-                            </div>
-                            <a href="/blog/digital-marketing-untuk-umkm" class="text-red-600 font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all">
-                                Baca <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Pagination -->
-                <div class="flex items-center justify-center gap-2 pt-6">
-                    <button class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl text-gray-400 hover:border-red-300 hover:text-red-600 transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    </button>
-                    <button class="w-10 h-10 flex items-center justify-center bg-red-600 text-white font-bold rounded-xl text-sm">1</button>
-                    <button class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl text-gray-700 font-semibold text-sm hover:border-red-300 hover:text-red-600 transition-colors">2</button>
-                    <button class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl text-gray-700 font-semibold text-sm hover:border-red-300 hover:text-red-600 transition-colors">3</button>
-                    <span class="text-gray-400 px-1">...</span>
-                    <button class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl text-gray-700 font-semibold text-sm hover:border-red-300 hover:text-red-600 transition-colors">8</button>
-                    <button class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl text-gray-400 hover:border-red-300 hover:text-red-600 transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </button>
-                </div>
-
+                {% endif %}
             </div>
-
-            <!-- ===== SIDEBAR (RIGHT) ===== -->
-            <aside class="space-y-7">
-
-                <!-- About Widget -->
-                <div class="card p-6">
-                    <h3 class="font-bold text-gray-900 mb-4">Tentang Blog Ini</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Kami menulis artikel tentang dunia digital khusus untuk pemilik bisnis. Tidak ada jargon teknis yang membingungkan — hanya tips praktis yang bisa langsung diterapkan.
-                    </p>
-                    <a href="/tentang" class="inline-flex items-center gap-1.5 text-red-600 font-semibold text-sm mt-4 hover:gap-2.5 transition-all">
-                        Tentang Kami <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+            <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                <span class="inline-block w-fit heading-12-bold uppercase tracking-widest text-brand-red bg-red-50 px-3 py-1 rounded-full mb-4">
+                    Artikel Terbaru
+                </span>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                    {% if featured.category %}
+                        <span class="paragraph-14-medium text-gray-500">{{ featured.category | localized('name') }}</span>
+                    {% endif %}
+                    <span class="paragraph-14 text-gray-400">{{ featured.created_at.format('d M Y') }}</span>
                 </div>
-
-                <!-- Popular Articles -->
-                <div class="card p-6">
-                    <h3 class="font-bold text-gray-900 mb-5">Artikel Populer</h3>
-                    <div class="space-y-4">
-                        <a href="/blog/kenapa-bisnis-butuh-website" class="flex items-start gap-3 group">
-                            <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center shrink-0 text-2xl">🌐</div>
-                            <div>
-                                <p class="text-gray-800 text-sm font-semibold leading-snug group-hover:text-red-600 transition-colors">Kenapa Bisnis Anda WAJIB Punya Website di 2025?</p>
-                                <p class="text-gray-400 text-xs mt-1">5 menit baca</p>
-                            </div>
-                        </a>
-                        <a href="/blog/aplikasi-atau-website" class="flex items-start gap-3 group">
-                            <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center shrink-0 text-2xl">📱</div>
-                            <div>
-                                <p class="text-gray-800 text-sm font-semibold leading-snug group-hover:text-red-600 transition-colors">Mending Buat Aplikasi Mobile atau Website?</p>
-                                <p class="text-gray-400 text-xs mt-1">7 menit baca</p>
-                            </div>
-                        </a>
-                        <a href="/blog/cara-jualan-online" class="flex items-start gap-3 group">
-                            <div class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center shrink-0 text-2xl">💡</div>
-                            <div>
-                                <p class="text-gray-800 text-sm font-semibold leading-snug group-hover:text-red-600 transition-colors">5 Cara Mudah Mulai Jualan Online untuk UMKM</p>
-                                <p class="text-gray-400 text-xs mt-1">4 menit baca</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Categories -->
-                <div class="card p-6">
-                    <h3 class="font-bold text-gray-900 mb-4">Kategori</h3>
-                    <div class="space-y-2">
-                        <a href="#" class="flex items-center justify-between p-2.5 hover:bg-red-50 rounded-xl group transition-colors">
-                            <span class="text-gray-600 group-hover:text-red-600 text-sm font-medium transition-colors">Tips Bisnis</span>
-                            <span class="bg-gray-100 group-hover:bg-red-100 text-gray-500 group-hover:text-red-600 text-xs font-bold px-2.5 py-1 rounded-full transition-colors">12</span>
-                        </a>
-                        <a href="#" class="flex items-center justify-between p-2.5 hover:bg-red-50 rounded-xl group transition-colors">
-                            <span class="text-gray-600 group-hover:text-red-600 text-sm font-medium transition-colors">Website</span>
-                            <span class="bg-gray-100 group-hover:bg-red-100 text-gray-500 group-hover:text-red-600 text-xs font-bold px-2.5 py-1 rounded-full transition-colors">9</span>
-                        </a>
-                        <a href="#" class="flex items-center justify-between p-2.5 hover:bg-red-50 rounded-xl group transition-colors">
-                            <span class="text-gray-600 group-hover:text-red-600 text-sm font-medium transition-colors">Aplikasi Mobile</span>
-                            <span class="bg-gray-100 group-hover:bg-red-100 text-gray-500 group-hover:text-red-600 text-xs font-bold px-2.5 py-1 rounded-full transition-colors">7</span>
-                        </a>
-                        <a href="#" class="flex items-center justify-between p-2.5 hover:bg-red-50 rounded-xl group transition-colors">
-                            <span class="text-gray-600 group-hover:text-red-600 text-sm font-medium transition-colors">E-Commerce</span>
-                            <span class="bg-gray-100 group-hover:bg-red-100 text-gray-500 group-hover:text-red-600 text-xs font-bold px-2.5 py-1 rounded-full transition-colors">5</span>
-                        </a>
-                        <a href="#" class="flex items-center justify-between p-2.5 hover:bg-red-50 rounded-xl group transition-colors">
-                            <span class="text-gray-600 group-hover:text-red-600 text-sm font-medium transition-colors">Desain UI/UX</span>
-                            <span class="bg-gray-100 group-hover:bg-red-100 text-gray-500 group-hover:text-red-600 text-xs font-bold px-2.5 py-1 rounded-full transition-colors">4</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Newsletter Widget -->
-                <div class="bg-red-600 rounded-2xl p-6 text-white">
-                    <h3 class="font-bold text-lg mb-2">Dapatkan Tips Gratis! 📬</h3>
-                    <p class="text-red-100 text-sm mb-5 leading-relaxed">
-                        Daftar newsletter kami dan dapatkan tips bisnis digital setiap minggu langsung di email Anda.
-                    </p>
-                    <input type="email" placeholder="email@anda.com" class="w-full bg-white/20 border border-white/30 text-white placeholder-red-200 rounded-xl px-4 py-2.5 text-sm mb-3 focus:outline-none focus:border-white transition-colors">
-                    <button class="w-full bg-white text-red-600 font-bold text-sm py-2.5 rounded-xl hover:bg-red-50 transition-colors">
-                        Langganan Sekarang
-                    </button>
-                </div>
-
-            </aside>
+                <h2 class="heading-32-bold text-gray-900 mt-1">
+                    {{ featured | localized('title') }}
+                </h2>
+                <p class="paragraph-16 text-gray-600 mt-4 leading-relaxed line-clamp-3">
+                    {{ featured | localized('description') | striptags | slice(0, 160) }}...
+                </p>
+                <span class="inline-flex items-center gap-2 heading-16-semibold text-brand-red mt-6 group-hover:gap-3 transition-all duration-200">
+                    Baca Artikel
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </span>
+            </div>
         </div>
-    </div>
+    </a>
+</section>
+{% endif %}
+
+{# ===================== GRID ARTIKEL LAINNYA ===================== #}
+<section class="container mx-auto px-4 py-20">
+    {% if restNews|length > 0 %}
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <h2 class="heading-28-bold text-gray-900">Artikel Lainnya</h2>
+                <p class="paragraph-15 text-gray-500 mt-2">Jelajahi lebih banyak artikel yang kami tulis untuk Anda</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {% for news in restNews %}
+                <a href="{{ localeUrl('/blog/' ~ news.id) }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="h-52 overflow-hidden bg-gray-100 relative">
+                        {% if news.image_url %}
+                            <img src="{{ news.image_url | media }}" alt="{{ news | localized('title') }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center">
+                                <span class="paragraph-14 text-gray-400">Tidak ada gambar</span>
+                            </div>
+                        {% endif %}
+                        {% if news.category %}
+                            <span class="absolute top-3 left-3 heading-12-semibold bg-white/95 backdrop-blur-sm text-gray-800 px-2.5 py-1 rounded-full shadow-sm">
+                                {{ news.category | localized('name') }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="p-6">
+                        <span class="paragraph-14 text-gray-400">{{ news.created_at.format('d M Y') }}</span>
+                        <h3 class="heading-18-semibold text-gray-900 mt-1 group-hover:text-brand-red transition-colors">
+                            {{ news | localized('title') }}
+                        </h3>
+                        <p class="paragraph-14 text-gray-500 mt-2 leading-relaxed line-clamp-2">
+                            {{ news | localized('description') | striptags | slice(0, 90) }}...
+                        </p>
+                        <span class="inline-flex items-center gap-1.5 heading-12-semibold text-brand-red mt-4 group-hover:gap-2.5 transition-all duration-200">
+                            Selengkapnya
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% elseif featured is empty %}
+        {# ===================== EMPTY STATE ===================== #}
+        <div class="text-center py-20 max-w-md mx-auto">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <svg class="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                </svg>
+            </div>
+            <h3 class="heading-20-semibold text-gray-900">Belum Ada Artikel</h3>
+            <p class="paragraph-15 text-gray-500 mt-2">Artikel kami sedang dalam proses, cek kembali nanti ya.</p>
+        </div>
+    {% endif %}
 </section>

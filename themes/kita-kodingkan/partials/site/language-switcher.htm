@@ -1,0 +1,4 @@
+<div class="flex items-center border border-gray-200 rounded-lg overflow-hidden text-sm font-semibold">
+    <a href="{{ switchUrl('id') }}" class="px-3 py-1.5 transition-colors paragraph-14-bold {% if currentLocale() == 'id' %}bg-brand-red text-white{% else %}text-gray-500 hover:bg-gray-50{% endif %}" aria-label="Bahasa Indonesia">ID</a>
+    <a href="{{ switchUrl('en') }}" class="px-3 py-1.5 transition-colors paragraph-14-bold {% if currentLocale() == 'en' %}bg-brand-red text-white{% else %}text-gray-500 hover:bg-gray-50{% endif %}" aria-label="English">EN</a>
+</div>
