@@ -1,0 +1,10 @@
+name: Page Content
+form: ~/plugins/itsanggara/localization/models/pagecontent/fields.yaml
+modelClass: ItsAnggara\Localization\Models\PageContent
+defaultRedirect: itsanggara/localization/page-contents
+create:
+    redirect: itsanggara/localization/page-contents/update/:id
+    redirectClose: itsanggara/localization/page-contents
+update:
+    redirect: itsanggara/localization/page-contents
+    redirectClose: itsanggara/localization/page-contents

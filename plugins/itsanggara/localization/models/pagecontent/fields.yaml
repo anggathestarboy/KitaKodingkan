@@ -1,0 +1,38 @@
+fields:
+    is_active:
+        label: Status Active
+        type: switch
+        comment: 'Nonaktifkan untuk menyembunyikan konten halaman ini di frontend.'
+        span: left
+
+    slug:
+        label: Slug
+        type: text
+        span: right
+        required: true
+        comment: 'Unique identifier, e.g. kebijakan-privasi'
+
+    title:
+        label: 'Title (Indonesia)'
+        type: text
+        span: right
+        required: true
+
+    content:
+        label: 'Content (Indonesia)'
+        type: richeditor
+        span: full
+        size: large
+        toolbarButtons: 'paragraphFormat | bold italic underline | align left center right | formatOL formatUL | insertLink | clearFormatting'
+
+    title_en:
+        label: 'Title (English)'
+        type: text
+        span: left
+
+    content_en:
+        label: 'Content (English)'
+        type: richeditor
+        span: full
+        size: large
+        toolbarButtons: 'paragraphFormat | bold italic underline | align left center right | formatOL formatUL | insertLink | clearFormatting'

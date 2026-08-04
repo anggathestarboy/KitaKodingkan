@@ -1,0 +1,21 @@
+columns:
+    is_active:
+        label: Status
+        type: switch
+        searchable: false
+
+    slug:
+        label: Slug
+        searchable: true
+
+    title:
+        label: 'Title (ID)'
+        searchable: true
+
+    title_en:
+        label: 'Title (EN)'
+        searchable: true
+
+    updated_at:
+        label: Updated
+        type: datetime

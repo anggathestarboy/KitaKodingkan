@@ -1,0 +1,11 @@
+title: Page Content
+modelClass: ItsAnggara\Localization\Models\PageContent
+list: ~/plugins/itsanggara/localization/models/pagecontent/columns.yaml
+recordUrl: itsanggara/localization/pagecontents/update/:id
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

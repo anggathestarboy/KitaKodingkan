@@ -45,6 +45,12 @@ class Plugin extends PluginBase
                         'url'         => \Backend\Facades\Backend::url('itsanggara/localization/translations'),
                         'permissions' => ['itsanggara.localization.manage_translations'],
                     ],
+                    'pagecontents' => [
+                        'label'       => 'Page Contents',
+                        'icon'        => 'icon-document',
+                        'url'         => \Backend\Facades\Backend::url('itsanggara/localization/pagecontents'),
+                        'permissions' => ['itsanggara.localization.manage_translations'],
+                    ],
                 ],
             ],
         ];
@@ -89,6 +95,35 @@ class Plugin extends PluginBase
                 },
                 'switchUrl'     => function ($locale) {
                     return Localization::instance()->switchUrl($locale);
+                },
+                'tocFromHtml'   => function ($html) {
+                    $headings = [];
+                    preg_match_all('/<h([23])\s+id="([^"]*)"[^>]*>(.*?)<\/h\1>/i', $html, $matches, PREG_SET_ORDER);
+                    foreach ($matches as $match) {
+                        $level = (int) $match[1];
+                        $id = $match[2];
+                        $text = strip_tags($match[3]);
+                        $headings[] = [
+                            'level' => $level,
+                            'id'    => $id,
+                            'text'  => $text,
+                        ];
+                    }
+                    return $headings;
+                },
+                'processContent' => function ($html) {
+                    $html = preg_replace_callback('/<h([23])([^>]*)>(.*?)<\/h\1>/is', function ($m) {
+                        $tag = $m[1];
+                        $attrs = trim($m[2]);
+                        $text = $m[3];
+                        if (preg_match('/id=["\']([^"\']+)["\']/', $attrs, $idMatch)) {
+                            return $m[0];
+                        }
+                        $plain = strip_tags($text);
+                        $slug = \Illuminate\Support\Str::slug(trim($plain));
+                        return '<h' . $tag . ' id="' . $slug . '"' . $attrs . '>' . $text . '</h' . $tag . '>';
+                    }, $html);
+                    return $html;
                 },
             ],
         ];

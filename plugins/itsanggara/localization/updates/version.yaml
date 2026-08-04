@@ -18,3 +18,13 @@
 1.0.7:
     - 'Recreate translations table if missing'
     - recreate_translations_table.php
+1.0.8:
+    - 'Create page_contents table'
+    - create_page_contents_table.php
+1.0.9:
+    - 'Seed default page content (kebijakan-privasi)'
+    - seed_page_contents.php
+1.0.10:
+    - 'Add is_active column to page_contents table'
+    - add_is_active_to_page_contents_table.php
+
