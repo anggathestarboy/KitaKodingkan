@@ -1,0 +1,193 @@
+title = "Hubungi Kami"
+url = "/hubungi-kami"
+layout = "default"
+description = "Hubungi kami untuk konsultasi dan kebutuhan proyek digital Anda"
+is_hidden = 0
+==
+<?php
+function onSubmit()
+{
+    $name = post('name');
+    $email = post('email');
+    $serviceNeed = post('service_need');
+    $message = post('message');
+
+    if (!$name || !$email || !$serviceNeed || !$message) {
+        throw new \ValidationException(['name' => 'Semua kolom wajib diisi.']);
+    }
+
+    \ItsAnggara\Content\Models\ContactSubmission::create([
+        'name'         => $name,
+        'email'        => $email,
+        'service_need' => $serviceNeed,
+        'message'      => $message,
+    ]);
+
+    $locale = \ItsAnggara\Localization\Classes\Localization::instance()->getCurrentLocale();
+    $successMsg = \ItsAnggara\Localization\Classes\Localization::instance()->translate('contact.success_message', $locale);
+
+    \Flash::success($successMsg);
+
+    return \Redirect::refresh();
+}
+?>
+==
+<section class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Header Title -->
+      <div class="text-center mb-12">
+        <h1 class="heading-40-bold text-gray-900 tracking-tight">
+          {{ 'contact.title'|t }}
+        </h1>
+        <p class="paragraph-16 text-gray-600 mt-3 max-w-2xl mx-auto">
+          {{ 'contact.subtitle'|t }}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Contact Info Side Card -->
+        <div class="lg:col-span-1 bg-brand-red text-white p-8 rounded-3xl shadow-xl flex flex-col justify-between">
+          <div>
+            <h2 class="heading-24-bold mb-4">Informasi Kontak</h2>
+            <p class="paragraph-15 text-red-100 mb-8 leading-relaxed">
+              Tim kami siap mendengar dan memberikan solusi digital terbaik untuk perkembangan bisnis Anda.
+            </p>
+
+            <div class="space-y-6 paragraph-15">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-envelope text-lg"></i>
+                </div>
+                <div>
+                  <span class="block text-xs uppercase tracking-wider text-red-200">Email</span>
+                  <span class="font-medium">{{ 'footer.footer_contact_email'|t }}</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-phone text-lg"></i>
+                </div>
+                <div>
+                  <span class="block text-xs uppercase tracking-wider text-red-200">Telepon / WhatsApp</span>
+                  <span class="font-medium">{{ 'footer.footer_contact_phone'|t }}</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-location-dot text-lg"></i>
+                </div>
+                <div>
+                  <span class="block text-xs uppercase tracking-wider text-red-200">Alamat Kantor</span>
+                  <span class="font-medium">{{ 'footer.footer_contact_address'|t }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 border-t border-white/20">
+            <span class="block text-xs uppercase tracking-wider text-red-200 mb-3">Sosial Media</span>
+            <div class="flex items-center gap-3">
+              <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white hover:text-brand-red text-white rounded-full flex items-center justify-center transition-all">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white hover:text-brand-red text-white rounded-full flex items-center justify-center transition-all">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white hover:text-brand-red text-white rounded-full flex items-center justify-center transition-all">
+                <i class="fa-brands fa-tiktok"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="lg:col-span-2 bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-xl">
+          
+          <form data-request="onSubmit" data-request-flash class="space-y-6">
+            
+            <!-- Name Input -->
+            <div>
+              <label for="input-name" class="block paragraph-15-semibold text-gray-800 mb-2">
+                {{ 'contact.label_name'|t }} <span class="text-brand-red">*</span>
+              </label>
+              <input
+                type="text"
+                id="input-name"
+                name="name"
+                required
+                placeholder="{{ 'contact.placeholder_name'|t }}"
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl paragraph-15 text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white transition-all"
+              >
+            </div>
+
+            <!-- Email Input -->
+            <div>
+              <label for="input-email" class="block paragraph-15-semibold text-gray-800 mb-2">
+                {{ 'contact.label_email'|t }} <span class="text-brand-red">*</span>
+              </label>
+              <input
+                type="email"
+                id="input-email"
+                name="email"
+                required
+                placeholder="{{ 'contact.placeholder_email'|t }}"
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl paragraph-15 text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white transition-all"
+              >
+            </div>
+
+            <!-- Select Option Kebutuhan -->
+            <div>
+              <label for="input-service-need" class="block paragraph-15-semibold text-gray-800 mb-2">
+                {{ 'contact.label_service'|t }} <span class="text-brand-red">*</span>
+              </label>
+              <select
+                id="input-service-need"
+                name="service_need"
+                required
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl paragraph-15 text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white transition-all appearance-none cursor-pointer"
+              >
+                <option value="" disabled selected>{{ 'contact.option_select'|t }}</option>
+                <option value="Pengembangan Website">{{ 'contact.option_web'|t }}</option>
+                <option value="Aplikasi Mobile">{{ 'contact.option_mobile'|t }}</option>
+                <option value="Aplikasi Custom">{{ 'contact.option_custom'|t }}</option>
+              </select>
+            </div>
+
+            <!-- Message Textarea -->
+            <div>
+              <label for="input-message" class="block paragraph-15-semibold text-gray-800 mb-2">
+                {{ 'contact.label_message'|t }} <span class="text-brand-red">*</span>
+              </label>
+              <textarea
+                id="input-message"
+                name="message"
+                rows="5"
+                required
+                placeholder="{{ 'contact.placeholder_message'|t }}"
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl paragraph-15 text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white transition-all resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              data-attach-loading
+              class="w-full btn-primary paragraph-16-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 hover:shadow-red-500/30 transition-all cursor-pointer"
+            >
+              <i class="fa-solid fa-paper-plane text-sm"></i>
+              <span>{{ 'contact.btn_submit'|t }}</span>
+            </button>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>

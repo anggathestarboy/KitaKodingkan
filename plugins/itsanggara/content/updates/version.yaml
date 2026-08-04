@@ -12,3 +12,7 @@
 1.0.5:
     - 'Updated table itsanggara_content_news'
     - builder_table_update_itsanggara_content_news.php
+1.0.6:
+    - 'Created table itsanggara_content_contact_submissions'
+    - create_contact_submissions_table.php
+

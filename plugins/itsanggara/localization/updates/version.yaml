@@ -27,4 +27,8 @@
 1.0.10:
     - 'Add is_active column to page_contents table'
     - add_is_active_to_page_contents_table.php
+1.0.11:
+    - 'Seed contact page translations'
+    - seed_contact_translations.php
+
 
