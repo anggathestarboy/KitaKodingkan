@@ -16,4 +16,22 @@ class Translation extends Model
     ];
 
     public $fillable = ['group', 'key', 'value_id', 'value_en'];
+
+    public function getGroupOptions()
+    {
+        return [
+            'header'  => 'Header',
+            'footer'  => 'Footer',
+            'hero'    => 'Hero',
+            'service' => 'Service',
+            'project' => 'Project',
+            'blog'    => 'Blog',
+            'about'   => 'About',
+        ];
+    }
+
+    public function scopeFilterByGroup($query, $value)
+    {
+        return $query->where('group', $value);
+    }
 }

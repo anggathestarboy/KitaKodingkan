@@ -1,0 +1,8 @@
+scopes:
+    group:
+        label: Group
+        type: dropdown
+        modelClass: ItsAnggara\Localization\Models\Translation
+        scope: filterByGroup
+        options: getGroupOptions
+        emptyOption: '-- Semua Group --'

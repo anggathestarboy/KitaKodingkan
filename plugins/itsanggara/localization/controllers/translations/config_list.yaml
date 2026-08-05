@@ -1,6 +1,7 @@
 title: Translations
 modelClass: ItsAnggara\Localization\Models\Translation
 list: ~/plugins/itsanggara/localization/models/translation/columns.yaml
+filter: config_filter.yaml
 recordUrl: itsanggara/localization/translations/update/:id
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
