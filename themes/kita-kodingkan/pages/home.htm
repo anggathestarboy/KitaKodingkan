@@ -18,7 +18,7 @@ function onStart()
         
       <h1 class="heading-36-bold sm:heading-36-bold md:heading-44-bold text-gray-900 tracking-tight">
   {{ 'herohome.static_heading' | t }}
-  <span id="typewriter-text" class="text-brand-red inline-block min-h-[1.2em]"></span>
+  <span id="typewriter-text" class="text-brand-red inline-block min-h-[1.2em] whitespace-nowrap align-bottom"></span>
   <br />
   {{ 'herohome.static_text2' | t }}
 </h1>
@@ -113,6 +113,21 @@ function onStart()
   document.addEventListener('DOMContentLoaded', function () {
     const textElement = document.getElementById('typewriter-text');
     const words = ['{{ 'herohome.dynamic_content1' | t }}?', '{{ 'herohome.dynamic_content2' | t }}?', '{{ 'herohome.dynamic_content3' | t }}?'];
+
+    const longestWidth = (function () {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const styles = window.getComputedStyle(textElement);
+      ctx.font = styles.fontWeight + ' ' + styles.fontSize + ' ' + styles.fontFamily;
+      if ('letterSpacing' in ctx) {
+        ctx.letterSpacing = styles.letterSpacing;
+      }
+      return words.reduce(function (max, word) {
+        return Math.max(max, ctx.measureText(word).width);
+      }, 0);
+    })();
+
+    textElement.style.minWidth = longestWidth + 'px';
     
     let wordIndex = 0;
     let charIndex = 0;
