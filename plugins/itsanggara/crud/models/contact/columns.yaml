@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    fullname:
+        label: Nama
+        searchable: true
+        sortable: true
+    email:
+        label: Email
+        searchable: true
+        sortable: true
+    need:
+        label: Kebutuhan
+        searchable: true
+    message:
+        label: Pesan
+    created_at:
+        label: Diterima
+        type: datetime
+        sortable: true

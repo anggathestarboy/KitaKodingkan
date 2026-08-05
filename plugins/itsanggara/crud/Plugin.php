@@ -15,6 +15,10 @@ class Plugin extends PluginBase
             'tab'   => 'CRUD',
             'label' => 'Manage Project Categories',
         ],
+        'itsanggara.crud.manage_contacts' => [
+            'tab'   => 'CRUD',
+            'label' => 'Manage Contacts',
+        ],
     ];
 }
 
@@ -40,6 +44,12 @@ public function registerNavigation()
                     'icon'        => 'icon-tags',
                     'url'         => \Backend\Facades\Backend::url('itsanggara/crud/projectcategories'),
                     'permissions' => ['itsanggara.crud.manage_categories'],
+                ],
+                'contacts' => [
+                    'label'       => 'Contacts',
+                    'icon'        => 'icon-envelope',
+                    'url'         => \Backend\Facades\Backend::url('itsanggara/crud/contact'),
+                    'permissions' => ['itsanggara.crud.manage_contacts'],
                 ],
             ],
         ],

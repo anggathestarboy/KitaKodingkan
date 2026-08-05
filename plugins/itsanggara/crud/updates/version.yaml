@@ -8,3 +8,6 @@
 1.0.3:
     - 'Updated table itsanggara_crud_contacts'
     - builder_table_update_itsanggara_crud_contacts.php
+1.0.4:
+    - 'Set auto increment id on itsanggara_crud_contacts'
+    - builder_table_update_itsanggara_crud_contacts_auto_increment.php

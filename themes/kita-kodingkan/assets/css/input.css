@@ -688,6 +688,12 @@ html {
 }
 
 
+/* ----- Validation Feedback (Winter AJAX) ----- */
+[data-validate-for]:not(.visible),
+[data-validate-error]:not(.visible) {
+    display: none;
+}
+
 @layer base {
     [x-cloak] {
         display: none !important;

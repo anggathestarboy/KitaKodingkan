@@ -1,0 +1,28 @@
+fields:
+    fullname:
+        label: Nama
+        type: text
+        span: left
+        disabled: true
+    email:
+        label: Email
+        type: text
+        span: right
+        disabled: true
+    need:
+        label: Kebutuhan
+        type: text
+        span: left
+        disabled: true
+    created_at:
+        label: Diterima
+        type: datepicker
+        mode: datetime
+        span: right
+        disabled: true
+    message:
+        label: Pesan
+        type: textarea
+        span: full
+        size: large
+        disabled: true

@@ -1,0 +1,7 @@
+name: Contact
+form: $/itsanggara/crud/models/contact/fields.yaml
+modelClass: ItsAnggara\Crud\Models\Contact
+defaultRedirect: itsanggara/crud/contact
+update:
+    redirect: itsanggara/crud/contact
+    redirectClose: itsanggara/crud/contact
