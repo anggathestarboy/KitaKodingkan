@@ -39,5 +39,8 @@
 1.0.14:
     - 'Seed page titles and descriptions'
     - seed_page_titles.php
+1.0.15:
+    - 'Add is_rich_text column to translations'
+    - add_is_rich_text_to_translations_table.php
 
 

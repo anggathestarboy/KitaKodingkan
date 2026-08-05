@@ -77,7 +77,13 @@ class Plugin extends PluginBase
         return [
             'filters' => [
                 't'         => function ($key, $locale = null) {
-                    return Localization::instance()->translate($key, $locale);
+                    $value = Localization::instance()->translate($key, $locale);
+
+                    if (Localization::instance()->isRichText($key)) {
+                        return new \Twig\Markup($value, 'UTF-8');
+                    }
+
+                    return $value;
                 },
                 'localized' => function ($model, $field) {
                     return Localization::instance()->localizedValue($model, $field);

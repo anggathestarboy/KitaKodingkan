@@ -20,4 +20,18 @@ class Translations extends Controller
         parent::__construct();
         BackendMenu::setContext('ItsAnggara.Localization', 'localization', 'translations');
     }
+
+    /**
+     * Preloads the RichEditor assets so the value fields can switch between
+     * textarea and rich editor via AJAX (form refresh).
+     */
+    public function formExtendFields($widget)
+    {
+        $field = new \Backend\Classes\FormField('value_id', 'Value ID');
+
+        $this->makeFormWidget(\Backend\FormWidgets\RichEditor::class, $field, [
+            'model' => $widget->model,
+            'alias' => 'valueRichEditorPreload',
+        ]);
+    }
 }

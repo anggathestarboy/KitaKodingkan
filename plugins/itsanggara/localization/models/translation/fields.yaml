@@ -21,14 +21,23 @@ fields:
         required: true
         comment: 'Contoh: nav_home, footer_title_services'
 
+    is_rich_text:
+        label: 'Konten Rich Text'
+        type: switch
+        default: false
+        span: full
+        comment: 'Aktifkan untuk mengedit nilai Indonesia & English sebagai rich text'
+
     value_id:
         label: 'Indonesia (id)'
         type: textarea
         size: small
         span: full
+        dependsOn: is_rich_text
 
     value_en:
         label: 'English (en)'
         type: textarea
         size: small
         span: full
+        dependsOn: is_rich_text

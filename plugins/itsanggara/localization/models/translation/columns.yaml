@@ -13,3 +13,8 @@ columns:
     value_en:
         label: 'English (en)'
         searchable: true
+
+    is_rich_text:
+        label: 'Rich Text'
+        type: switch
+        sortable: true

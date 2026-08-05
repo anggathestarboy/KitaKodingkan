@@ -36,20 +36,9 @@ is_hidden = 0
                     <h3 class="heading-24-bold text-gray-900 mb-4">
                         {{ 'about.card2_header' | t }}
                     </h3>
-                    <ul class="space-y-3 paragraph-15 text-gray-600">
-                        <li class="flex items-start gap-2">
-                            <span class="text-brand-red font-bold">&bull;</span>
-                            <span>Menyediakan produk dan layanan berkualitas tinggi yang berfokus pada kepuasan pelanggan.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-brand-red font-bold">&bull;</span>
-                            <span>Mendorong inovasi berkelanjutan dan efisiensi dalam setiap proses operasional.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-brand-red font-bold">&bull;</span>
-                            <span>Membangun lingkungan kerja yang profesional, inklusif, dan berintegritas tinggi.</span>
-                        </li>
-                    </ul>
+                  <div class="prose max-w-none text-gray-600">
+    {{ 'about.card2_desc' | t | raw }}
+</div>
                 </div>
             </div>
 

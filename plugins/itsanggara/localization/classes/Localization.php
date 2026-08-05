@@ -115,6 +115,16 @@ class Localization
     }
 
     /**
+     * Whether the given translation key should be rendered as rich text.
+     */
+    public function isRichText($key)
+    {
+        $row = $this->findTranslation($key);
+
+        return $row ? (bool) $row->is_rich_text : false;
+    }
+
+    /**
      * Returns the localized value for a model attribute.
      *
      * When the active locale differs from the default and a translated
