@@ -17,22 +17,22 @@ function onStart()
       <div class="flex flex-col items-start space-y-4">
         
       <h1 class="heading-36-bold sm:heading-36-bold md:heading-44-bold text-gray-900 tracking-tight">
-  Anda Butuh 
+  {{ 'herohome.static_heading' | t }}
   <span id="typewriter-text" class="text-brand-red inline-block min-h-[1.2em]"></span>
   <br />
-  Kita Kodingkan!
+  {{ 'herohome.static_text2' | t }}
 </h1>
 
         <p class="paragraph-18 text-gray-700 max-w-xl">
-          Kami membangun aplikasi yang luar biasa, intuitif, dan terjangkau. Dari ide sederhana menjadi solusi nyata bagi semua orang.
+          {{ 'herohome.desc' | t }}
         </p>
 
         <div class="grid grid-cols-2 gap-3 sm:gap-4 pt-3 w-full sm:w-auto">
           <a href="#portfolio" class="btn-primary !px-3 sm:!px-6 paragraph-14-bold sm:paragraph-16-bold justify-center whitespace-nowrap text-center">
-            Lihat Portofolio <span>&rarr;</span>
+            {{ 'herohome.button_text1' | t }} <span>&rarr;</span>
           </a>
           <a href="#contact" class="btn-outline !px-3 sm:!px-6 paragraph-14-bold sm:paragraph-16-bold justify-center whitespace-nowrap text-center">
-            Konsultasi Gratis
+            {{ 'herohome.button_text2' | t }}  <span>&rarr;</span>
           </a>
         </div>
 
@@ -49,15 +49,16 @@ function onStart()
             />
           </div>
 
-          <div class="absolute -bottom-5 -left-5 bg-white/95 backdrop-blur-md border border-gray-100 p-3 rounded-2xl shadow-lg flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center text-white font-bold">
-              ✓
-            </div>
-            <div>
-              <p class="heading-16-bold text-gray-900">100% Amanah</p>
-              <p class="paragraph-14 text-gray-500">Kami melakukan yang terbaik</p>
-            </div>
-          </div>
+         <div class="absolute -bottom-5 -left-5 bg-white/95 backdrop-blur-md border border-gray-100 p-4 rounded-2xl shadow-lg">
+    <div class="flex items-center gap-4 text-3xl">
+        <i class="fa-brands fa-laravel text-red-500"></i>
+        <i class="fa-brands fa-react text-sky-500"></i>
+        <i class="fa-brands fa-node-js text-green-600"></i>
+        <i class="fa-brands fa-vuejs text-emerald-500"></i>
+        <i class="fa-brands fa-golang text-cyan-500"></i>
+        <i class="fa-brands fa-flutter text-blue-500"></i>
+    </div>
+</div>
 
         </div>
 
@@ -75,15 +76,15 @@ function onStart()
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
       <div>
         <h2 class="heading-40-bold text-gray-900 tracking-tight">
-         Hasil Pekerjaan Kami
+        {{ 'project.header' |  t  }}
         </h2>
         <p class="paragraph-16 text-gray-500 mt-2">
-         Intip hasil pekerjaan kami untuk melihat bagaimana kami dapat membantu memajukan bisnis Anda.
+         {{ 'project.desc' |  t  }}
         </p>
       </div>
 
-      <a href="#projects" class="inline-flex items-center gap-1.5 paragraph-14-bold text-brand-red hover:text-brand-red-dark transition-colors">
-        Lihat Semua Projek <span>&rsaquo;</span>
+      <a href="{{ localeUrl('/proyek') }}" class="inline-flex items-center gap-1.5 paragraph-14-bold text-brand-red hover:text-brand-red-dark transition-colors">
+        {{ 'project.button_text' | t }}  <span>&rsaquo;</span>
       </a>
     </div>
 
@@ -111,7 +112,7 @@ function onStart()
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const textElement = document.getElementById('typewriter-text');
-    const words = ['Situs Web?', 'Aplikasi?', 'Digitalisasi?'];
+    const words = ['{{ 'herohome.dynamic_content1' | t }}?', '{{ 'herohome.dynamic_content2' | t }}?', '{{ 'herohome.dynamic_content3' | t }}?'];
     
     let wordIndex = 0;
     let charIndex = 0;

@@ -31,7 +31,7 @@ class Translation extends Model
 
     public function getGroupOptions()
     {
-        return [
+        $options = [
             'header'  => 'Header',
             'footer'  => 'Footer',
             'hero'    => 'Hero',
@@ -40,6 +40,24 @@ class Translation extends Model
             'blog'    => 'Blog',
             'about'   => 'About',
         ];
+
+        $groups = static::query()
+            ->select('group')
+            ->distinct()
+            ->get()
+            ->pluck('group')
+            ->map(function ($group) {
+                return trim((string) $group);
+            })
+            ->filter();
+
+        foreach ($groups as $group) {
+            if (!isset($options[$group])) {
+                $options[$group] = $group;
+            }
+        }
+
+        return $options;
     }
 
     public function scopeFilterByGroup($query, $value)

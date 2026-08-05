@@ -11,10 +11,10 @@ function onStart()
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-2xl mx-auto mb-10">
       <h2 class="heading-40-bold text-gray-900 tracking-tight">
-       Berita dan Informasi Terbaru
+      {{ 'blog.header' | t }}
       </h2>
       <p class="paragraph-16 text-gray-500 mt-2">
-        Update terbaru seputar teknologi dan informasi
+      {{ 'blog.desc' | t }}
       </p>
     </div>
 
@@ -48,7 +48,7 @@ function onStart()
             {{ news | localized('description') | striptags | slice(0, 120) }}...
           </p>
           <span class="inline-flex items-center gap-1 paragraph-14-bold text-gray-900 group-hover:text-brand-red transition-colors pt-2">
-            Baca Selengkapnya <span>&rsaquo;</span>
+            {{ 'blog.button_text' | t }} <span>&rsaquo;</span>
           </span>
         </div>
       </a>
