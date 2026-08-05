@@ -33,5 +33,11 @@
 1.0.12:
     - 'Seed contact modal translations'
     - seed_contact_modal_translations.php
+1.0.13:
+    - 'Add description columns to page_contents'
+    - add_description_columns_to_page_contents_table.php
+1.0.14:
+    - 'Seed page titles and descriptions'
+    - seed_page_titles.php
 
 

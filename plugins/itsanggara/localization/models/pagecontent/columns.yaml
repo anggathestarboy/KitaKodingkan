@@ -16,6 +16,10 @@ columns:
         label: 'Title (EN)'
         searchable: true
 
+    description:
+        label: 'Description (ID)'
+        searchable: true
+
     updated_at:
         label: Updated
         type: datetime

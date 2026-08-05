@@ -18,6 +18,11 @@ fields:
         span: right
         required: true
 
+    description:
+        label: 'Description (Indonesia)'
+        type: text
+        span: right
+
     content:
         label: 'Content (Indonesia)'
         type: richeditor
@@ -26,6 +31,11 @@ fields:
 
     title_en:
         label: 'Title (English)'
+        type: text
+        span: left
+
+    description_en:
+        label: 'Description (English)'
         type: text
         span: left
 

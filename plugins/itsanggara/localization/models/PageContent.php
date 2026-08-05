@@ -9,15 +9,17 @@ class PageContent extends Model
     public $table = 'itsanggara_localization_page_contents';
 
     public $rules = [
-        'slug'       => 'required|max:255',
-        'is_active'  => 'boolean',
-        'title'      => 'nullable|max:255',
-        'content'    => 'nullable',
-        'title_en'   => 'nullable|max:255',
-        'content_en' => 'nullable',
+        'slug'            => 'required|max:255',
+        'is_active'       => 'boolean',
+        'title'           => 'nullable|max:255',
+        'content'         => 'nullable',
+        'title_en'        => 'nullable|max:255',
+        'content_en'      => 'nullable',
+        'description'     => 'nullable|max:500',
+        'description_en'  => 'nullable|max:500',
     ];
 
-    public $fillable = ['slug', 'is_active', 'title', 'content', 'title_en', 'content_en'];
+    public $fillable = ['slug', 'is_active', 'title', 'content', 'title_en', 'content_en', 'description', 'description_en'];
 
     public $uniqueIds = ['slug'];
 

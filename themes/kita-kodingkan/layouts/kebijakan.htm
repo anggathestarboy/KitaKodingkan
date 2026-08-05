@@ -1,5 +1,22 @@
 description = "Main layout"
 ==
+function onStart()
+{
+    $locale = \ItsAnggara\Localization\Classes\Localization::instance()->getCurrentLocale();
+    if ($locale === 'en' && isset($this->page)) {
+        $row = \ItsAnggara\Localization\Models\PageContent::getBySlug($this->page->baseFileName);
+        if ($row && $row->is_active) {
+            if ($row->title_en) {
+                $this->page->title = $row->title_en;
+            }
+            if ($row->description_en) {
+                $this->page->description = $row->description_en;
+                $this->page->meta_description = $row->description_en;
+            }
+        }
+    }
+}
+==
 <!DOCTYPE html>
 <html lang="{{ currentLocale() == 'en' ? 'en' : 'id' }}">
 <head>

@@ -9,6 +9,7 @@ fields:
             service: Service
             project: Project
             blog: Blog
+            about: About
         placeholder: "-- Pilih Group --"
         span: left
         required: true

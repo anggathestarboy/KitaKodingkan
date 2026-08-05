@@ -26,7 +26,8 @@ function onContactSubmit()
 
             <div class="flex flex-col items-start space-y-6">
                 <h1 class="heading-36-bold md:heading-44-bold text-gray-900 tracking-tight">
-                    Hubungi <span class="text-brand-red">Kami</span>
+                    {{ this.page.title|split(' ')|first }}
+                    <span class="text-brand-red">{{ this.page.title|split(' ')|slice(1)|join(' ') }}</span>
                 </h1>
                 <p class="paragraph-16 text-gray-500 max-w-lg">
                     Ada pertanyaan atau kebutuhan proyek digital? Isi formulir di samping, dan tim kami akan segera menghubungi Anda.
