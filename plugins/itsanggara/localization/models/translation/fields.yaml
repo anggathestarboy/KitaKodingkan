@@ -6,6 +6,9 @@ fields:
             header: Header
             footer: Footer
             hero: Hero
+            service: Service
+            project: Project
+            blog: Blog
         placeholder: "-- Pilih Group --"
         span: left
         required: true
