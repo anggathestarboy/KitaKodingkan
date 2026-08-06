@@ -74,7 +74,7 @@ function onStart()
             </div>
             <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
                 <span class="inline-block w-fit heading-12-bold uppercase tracking-widest text-brand-red bg-red-50 px-3 py-1 rounded-full mb-4">
-                    Artikel Terbaru
+                    {{ 'blog.featured_label' | t }}
                 </span>
                 <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                     {% if featured.category %}
@@ -89,7 +89,7 @@ function onStart()
                     {{ featured | localized('description') | striptags | slice(0, 160) }}...
                 </p>
                 <span class="inline-flex items-center gap-2 heading-16-semibold text-brand-red mt-6 group-hover:gap-3 transition-all duration-200">
-                    Baca Artikel
+                    {{ 'blog.read_article' | t }}
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -106,13 +106,13 @@ function onStart()
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
             <div>
                 {% if hasFilter %}
-                    <h2 class="heading-28-bold text-gray-900">Hasil Pencarian</h2>
+                    <h2 class="heading-28-bold text-gray-900">{{ 'blog.search_results_header' | t }}</h2>
                     <p class="paragraph-15 text-gray-500 mt-2">
-                        {{ news.total() }} artikel ditemukan untuk kata kunci dan filter yang dipilih
+                        {{ 'blog.search_results_desc' | t | replace({':count': news.total()}) }}
                     </p>
                 {% else %}
-                    <h2 class="heading-28-bold text-gray-900">Artikel Lainnya</h2>
-                    <p class="paragraph-15 text-gray-500 mt-2">Jelajahi lebih banyak artikel yang kami tulis untuk Anda</p>
+                    <h2 class="heading-28-bold text-gray-900">{{ 'blog.other_header' | t }}</h2>
+                    <p class="paragraph-15 text-gray-500 mt-2">{{ 'blog.other_subtitle' | t }}</p>
                 {% endif %}
             </div>
 
@@ -120,22 +120,22 @@ function onStart()
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                     <input type="search" name="search" value="{{ search }}"
-                           placeholder="Cari artikel..."
+                           placeholder="{{ 'blog.search_placeholder' | t }}"
                            class="w-full sm:w-64 pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 paragraph-14 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent">
                 </div>
                 <select name="category"
                         class="w-full sm:w-48 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 paragraph-14 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent">
-                    <option value="">Semua Kategori</option>
+                    <option value="">{{ 'blog.all_categories' | t }}</option>
                     {% for cat in categories %}
                         <option value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ cat | localized('name') }}</option>
                     {% endfor %}
                 </select>
                 <button type="submit" class="btn-primary paragraph-14-bold !px-5 whitespace-nowrap justify-center">
-                    <i class="fa-solid fa-filter"></i> Filter
+                    <i class="fa-solid fa-filter"></i> {{ 'blog.filter_btn' | t }}
                 </button>
                 {% if hasFilter %}
                     <a href="{{ localeUrl('/blog') }}" class="btn-outline paragraph-14-bold !px-5 whitespace-nowrap justify-center">
-                        <i class="fa-solid fa-rotate-left"></i> Reset
+                        <i class="fa-solid fa-rotate-left"></i> {{ 'blog.reset_btn' | t }}
                     </a>
                 {% endif %}
             </form>
@@ -150,7 +150,7 @@ function onStart()
                                  class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
                         {% else %}
                             <div class="w-full h-full flex items-center justify-center">
-                                <span class="paragraph-14 text-gray-400">Tidak ada gambar</span>
+                                <span class="paragraph-14 text-gray-400">{{ 'blog.no_image' | t }}</span>
                             </div>
                         {% endif %}
                         {% if news.category %}
@@ -168,7 +168,7 @@ function onStart()
                             {{ news | localized('description') | striptags | slice(0, 90) }}...
                         </p>
                         <span class="inline-flex items-center gap-1.5 heading-12-semibold text-brand-red mt-4 group-hover:gap-2.5 transition-all duration-200">
-                            Selengkapnya
+                            {{ 'blog.read_more' | t }}
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                             </svg>
@@ -187,9 +187,9 @@ function onStart()
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                 </svg>
             </div>
-            <h3 class="heading-20-semibold text-gray-900">Tidak Ada Artikel</h3>
-            <p class="paragraph-15 text-gray-500 mt-2">Belum ada artikel yang cocok dengan pencarian atau filter kamu.</p>
-            <a href="{{ localeUrl('/blog') }}" class="btn-primary paragraph-14-bold !px-5 mt-6">Reset Pencarian</a>
+            <h3 class="heading-20-semibold text-gray-900">{{ 'blog.empty_title' | t }}</h3>
+            <p class="paragraph-15 text-gray-500 mt-2">{{ 'blog.empty_desc' | t }}</p>
+            <a href="{{ localeUrl('/blog') }}" class="btn-primary paragraph-14-bold !px-5 mt-6">{{ 'blog.reset_search' | t }}</a>
         </div>
     {% endif %}
 </section>

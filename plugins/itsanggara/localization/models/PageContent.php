@@ -27,4 +27,39 @@ class PageContent extends Model
     {
         return static::where('slug', $slug)->first();
     }
+
+    /**
+     * Resolves the PageContent record that belongs to the given CMS page.
+     *
+     * The slug stored in the database does not always match the page's file
+     * name (e.g. projects.htm maps to slug "proyek"), so both the base file
+     * name and the URL path are tried.
+     */
+    public static function resolveForPage($page)
+    {
+        if (!$page) {
+            return null;
+        }
+
+        $candidates = [];
+
+        $baseFileName = trim((string) $page->baseFileName);
+        if ($baseFileName !== '') {
+            $candidates[] = $baseFileName;
+        }
+
+        $url = trim((string) $page->url, '/');
+        if ($url !== '') {
+            $candidates[] = $url;
+        }
+
+        foreach (array_unique($candidates) as $slug) {
+            $row = static::where('slug', $slug)->first();
+            if ($row) {
+                return $row;
+            }
+        }
+
+        return null;
+    }
 }

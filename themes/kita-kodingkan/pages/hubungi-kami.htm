@@ -30,7 +30,7 @@ function onContactSubmit()
                     <span class="text-brand-red">{{ this.page.title|split(' ')|slice(1)|join(' ') }}</span>
                 </h1>
                 <p class="paragraph-16 text-gray-500 max-w-lg">
-                    Ada pertanyaan atau kebutuhan proyek digital? Isi formulir di samping, dan tim kami akan segera menghubungi Anda.
+                   {{ 'contact.desc' | t }}
                 </p>
 
                 <div class="w-full space-y-4">
@@ -49,7 +49,7 @@ function onContactSubmit()
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div>
-                            <p class="heading-16-semibold text-gray-900">Telepon</p>
+                            <p class="heading-16-semibold text-gray-900">{{'contact.card2_label' | t}}</p>
                             <p class="paragraph-14 text-gray-500 mt-0.5">{{ 'footer.footer_contact_phone'|t }}</p>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ function onContactSubmit()
                             <i class="fa-solid fa-location-dot"></i>
                         </div>
                         <div>
-                            <p class="heading-16-semibold text-gray-900">Alamat</p>
+                            <p class="heading-16-semibold text-gray-900">{{'contact.card3_label' | t}}</p>
                             <p class="paragraph-14 text-gray-500 mt-0.5">{{ 'footer.footer_contact_address'|t }}</p>
                         </div>
                     </div>
@@ -81,8 +81,8 @@ function onContactSubmit()
 
                 <div id="contact-form-error" data-validate-error class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 paragraph-14"></div>
 
-                <h2 class="heading-24-bold text-gray-900 mb-1">Kirim Pesan</h2>
-                <p class="paragraph-14 text-gray-500 mb-6">Kami akan membalas secepat mungkin.</p>
+                <h2 class="heading-24-bold text-gray-900 mb-1">{{ 'contact.form_label'|t }}</h2>
+                <p class="paragraph-14 text-gray-500 mb-6">{{ 'contact.form_desc'|t }}</p>
 
                 <form data-request="onContactSubmit" data-request-validate data-request-error="showContactError(errorMsg)" class="space-y-5">
                     <div>

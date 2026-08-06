@@ -15,4 +15,7 @@
 1.0.6:
     - 'Created table itsanggara_content_contact_submissions'
     - create_contact_submissions_table.php
+1.0.7:
+    - 'Dropped unused itsanggara_content_contact_submissions table'
+    - drop_contact_submissions_table.php
 

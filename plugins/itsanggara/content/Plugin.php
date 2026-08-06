@@ -43,13 +43,6 @@ class Plugin extends PluginBase
                     ],
                 ],
             ],
-            'contactsubmissions' => [
-                'label'       => 'Pesan Kontak',
-                'url'         => \Backend\Facades\Backend::url('itsanggara/content/contactsubmissions'),
-                'icon'        => 'icon-envelope-o',
-                'permissions' => ['itsanggara.content.manage_news'],
-                'order'       => 530,
-            ],
         ];
     }
 

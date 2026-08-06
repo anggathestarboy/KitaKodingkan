@@ -32,7 +32,7 @@ return [
 
     'connections' => [
         'sqlite' => [
-            'database' => env('DB_DATABASE', 'storage\\database.sqlite'),
+            'database' => env('DB_DATABASE', 'kitakodingkancoy'),
             'driver' => 'sqlite',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'prefix' => '',
@@ -41,7 +41,7 @@ return [
         'mysql' => [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'database' => env('DB_DATABASE', 'kitakodingkan'),
+            'database' => env('DB_DATABASE', 'kitakodingkancoy'),
             'driver' => 'mysql',
             'engine' => 'InnoDB',
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -55,15 +55,15 @@ return [
             'strict' => true,
             'unix_socket' => env('DB_SOCKET', ''),
             'url' => env('DATABASE_URL'),
-            'username' => env('DB_USERNAME', 'root'),
+            'username' => env('DB_USERNAME', ''),
         ],
         'pgsql' => [
             'charset' => 'utf8',
-            'database' => env('DB_DATABASE', 'storage\\database.sqlite'),
+            'database' => env('DB_DATABASE', 'kitakodingkancoy'),
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'password' => env('DB_PASSWORD', ''),
-            'port' => env('DB_PORT', '5432'),
+            'port' => env('DB_PORT', '3306'),
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',

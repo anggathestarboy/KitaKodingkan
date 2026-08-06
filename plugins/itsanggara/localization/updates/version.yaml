@@ -42,5 +42,8 @@
 1.0.15:
     - 'Add is_rich_text column to translations'
     - add_is_rich_text_to_translations_table.php
+1.0.16:
+    - 'Seed blog and project page UI translations'
+    - seed_blog_project_translations.php
 
 

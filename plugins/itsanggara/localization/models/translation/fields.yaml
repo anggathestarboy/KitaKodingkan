@@ -11,6 +11,7 @@ fields:
             blog: Blog
             about: About
             HeroHome: HeroHome
+            Contact: Contact
         placeholder: "-- Pilih Group --"
         span: left
         required: true

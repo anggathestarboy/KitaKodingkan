@@ -1,7 +1,0 @@
-name: Contact Submission
-form: ~/plugins/itsanggara/content/models/contactsubmission/fields.yaml
-modelClass: ItsAnggara\Content\Models\ContactSubmission
-defaultRedirect: itsanggara/content/contactsubmissions
-update:
-    redirect: itsanggara/content/contactsubmissions
-    redirectClose: itsanggara/content/contactsubmissions
