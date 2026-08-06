@@ -146,5 +146,13 @@ class Plugin extends PluginBase
         Event::listen('cms.route', function () {
             App::setLocale(Localization::instance()->getCurrentLocale());
         });
+
+        Event::listen('cms.template.save', function ($controller, $template, $type) {
+            if ($type !== 'page' || !($template instanceof \Cms\Classes\Page)) {
+                return;
+            }
+
+            \ItsAnggara\Localization\Models\PageContent::createForPageIfMissing($template);
+        });
     }
 }

@@ -25,4 +25,21 @@ class PageContents extends Controller
     {
         return $this->handleError(new \Winter\Storm\Exception\ApplicationException('Creating new content is disabled. Only editing existing content is allowed.'));
     }
+
+    public function formExtendFields($form, $fields)
+    {
+        $model = $form->model;
+
+        if (!$model instanceof \ItsAnggara\Localization\Models\PageContent) {
+            return;
+        }
+
+        $page = $model->getPage();
+        $hasContentEditor = $page && $page->layout === 'kebijakan';
+
+        if (!$hasContentEditor) {
+            $form->removeField('content');
+            $form->removeField('content_en');
+        }
+    }
 }

@@ -1,2 +1,21 @@
+<?php
+    $listWidget = $this->listGetWidget();
+    $checkedSelector = $listWidget
+        ? '#' . $listWidget->getId() . ' tbody input[type=checkbox]:checked'
+        : 'input[name="checked[]"]:checked';
+?>
 <div data-control="toolbar">
+    <button
+        type="button"
+        class="btn btn-danger wn-icon-trash"
+        disabled="disabled"
+        onclick="$(this).data('request-data', { checked: $('<?= e($checkedSelector) ?>').map(function(){ return $(this).val() }).get() }); return true;"
+        data-request="onDelete"
+        data-request-confirm="Hapus konten halaman yang dipilih?"
+        data-stripe-load-indicator="1"
+        data-trigger-action="enable"
+        data-trigger=".list-checkbox input[type=checkbox]"
+        data-trigger-condition="checked">
+        Hapus
+    </button>
 </div>
