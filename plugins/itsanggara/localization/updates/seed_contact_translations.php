@@ -23,6 +23,7 @@ class SeedContactTranslations extends Migration
             ['contact', 'placeholder_message', 'Ceritakan detail proyek atau kebutuhan Anda...', 'Tell us about your project or needs...'],
             ['contact', 'btn_submit', 'Kirim Pesan', 'Send Message'],
             ['contact', 'success_message', 'Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.', 'Thank you! Your message has been sent successfully. We will get back to you soon.'],
+            ['contact', 'captcha_error', 'Verifikasi captcha gagal. Silakan coba lagi.', 'Captcha verification failed. Please try again.'],
         ];
 
         foreach ($translations as [$group, $key, $valueId, $valueEn]) {

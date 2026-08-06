@@ -2385,6 +2385,12 @@
   .active\:visible:active {
     visibility: visible;
   }
+  .disabled\:cursor-not-allowed:disabled {
+    cursor: not-allowed;
+  }
+  .disabled\:opacity-50:disabled {
+    opacity: 50%;
+  }
   @media (width >= 40rem) {
     .sm\:inline {
       display: inline;

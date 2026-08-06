@@ -4,8 +4,15 @@ layout = "default"
 description = "Hubungi kami untuk konsultasi dan kebutuhan proyek digital Anda"
 is_hidden = 0
 ==
+function onStart()
+{
+    $this['siteKey'] = config('services.recaptcha.site_key', '');
+}
+
 function onContactSubmit()
 {
+    $this->verifyCaptcha();
+
     $contact = new \ItsAnggara\Crud\Models\Contact;
     $contact->fullname = post('fullname');
     $contact->email = post('email');
@@ -18,6 +25,34 @@ function onContactSubmit()
     );
 
     return \Illuminate\Support\Facades\Redirect::to($this->page->url);
+}
+
+private function verifyCaptcha()
+{
+    $secretKey = config('services.recaptcha.secret_key', '');
+
+    if (!$secretKey) {
+        return;
+    }
+
+    $verify = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query([
+                'secret' => $secretKey,
+                'response' => post('g-recaptcha-response'),
+            ]),
+        ],
+    ]));
+
+    $result = $verify ? json_decode($verify, true) : null;
+
+    if (!$result || empty($result['success'])) {
+        throw new \Winter\Storm\Exception\ValidationException([
+            'g-recaptcha-response' => \ItsAnggara\Localization\Classes\Localization::instance()->translate('contact.captcha_error'),
+        ]);
+    }
 }
 ==
 <section class="relative py-16 md:py-24 bg-white overflow-hidden">
@@ -136,10 +171,40 @@ function onContactSubmit()
                         <div data-validate-for="message" class="text-red-600 paragraph-14 mt-1"></div>
                     </div>
 
-                    <button type="submit" data-attach-loading class="btn-primary w-full justify-center paragraph-14-bold">
+                    {% if siteKey %}
+                    <div>
+                        <div class="g-recaptcha" data-sitekey="{{ siteKey }}" data-callback="onCaptchaDone" data-expired-callback="onCaptchaExpired"></div>
+                        <div data-validate-for="g-recaptcha-response" class="text-red-600 paragraph-14 mt-1"></div>
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" data-attach-loading id="contact-submit-btn" class="btn-primary w-full justify-center paragraph-14-bold{% if siteKey %} disabled:opacity-50 disabled:cursor-not-allowed{% endif %}"{% if siteKey %} disabled{% endif %}>
                         <i class="fa-solid fa-paper-plane"></i>{{ 'contact.btn_submit'|t }}
                     </button>
                 </form>
+
+                {% if siteKey %}
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <script>
+                    window.captchaPassed = false;
+
+                    window.onCaptchaDone = function () {
+                        window.captchaPassed = true;
+                        var btn = document.getElementById('contact-submit-btn');
+                        if (btn) {
+                            btn.disabled = false;
+                        }
+                    };
+
+                    window.onCaptchaExpired = function () {
+                        window.captchaPassed = false;
+                        var btn = document.getElementById('contact-submit-btn');
+                        if (btn) {
+                            btn.disabled = true;
+                        }
+                    };
+                </script>
+                {% endif %}
 
                 <script>
                     function showContactError(errorMsg) {
