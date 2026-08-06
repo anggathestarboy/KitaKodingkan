@@ -4,4 +4,159 @@ layout = "kebijakan"
 description = "Pahami syarat dan ketentuan dari perusahaan kami"
 is_hidden = 0
 ==
-{% partial 'site/hero' %}
+
+<?php
+function onStart()
+{
+    $locale = \ItsAnggara\Localization\Classes\Localization::instance()->getCurrentLocale();
+    $page = \ItsAnggara\Localization\Models\PageContent::getBySlug('syarat-dan-ketentuan');
+
+    if ($page && $page->is_active) {
+        $this['isActive']  = true;
+        $this['pageTitle'] = $locale === 'en' && $page->title_en ? $page->title_en : $page->title;
+        $rawContent = $locale === 'en' && $page->content_en ? $page->content_en : $page->content;
+    } else {
+        $this['isActive']  = false;
+        $this['pageTitle'] = 'Kebijakan Privasi';
+        $rawContent        = '';
+    }
+
+    $this['pageContent'] = $rawContent;
+}
+?>
+
+
+==
+{% if isActive %}
+<section class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+    {% set tocItems = tocFromHtml(processContent(pageContent)) %}
+
+    <div class="lg:hidden mb-8">
+      <div class="border border-gray-200 rounded-2xl overflow-hidden">
+        <button
+          id="toc-toggle-btn"
+          type="button"
+          class="w-full p-4 bg-gray-50 flex items-center justify-between text-left focus:outline-none"
+        >
+          <span class="heading-18-bold text-gray-900">Daftar Isi</span>
+          <svg id="toc-chevron" class="w-5 h-5 text-gray-600 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="toc-mobile-menu" class="hidden p-4 border-t border-gray-200">
+          <nav class="space-y-3 paragraph-15">
+            {% for item in tocItems %}
+              <a href="#{{ item.id }}" class="toc-link toc-mobile-link flex items-center gap-3 {% if item.level == 3 %}pl-6{% endif %} text-gray-600 hover:text-brand-red transition-colors">
+                <span class="w-2 h-2 rounded-full bg-gray-300 shrink-0 toc-dot transition-colors {% if item.level == 3 %}opacity-0{% endif %}"></span>
+                <span>{{ item.text }}</span>
+              </a>
+            {% endfor %}
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-12 items-start relative">
+
+      <div class="w-full lg:w-2/3 content-dynamic">
+        {{ processContent(pageContent)|raw }}
+      </div>
+
+      <div class="hidden lg:block w-1/3 lg:sticky lg:top-28">
+        <div class="p-6">
+          <h3 class="heading-20-bold text-gray-900 mb-6">Daftar Isi</h3>
+          <nav class="space-y-3 paragraph-15">
+            {% for item in tocItems %}
+              <a href="#{{ item.id }}" data-toc-id="{{ item.id }}" class="toc-link flex items-center gap-3 {% if item.level == 3 %}pl-6{% endif %} text-gray-600 hover:text-brand-red transition-colors">
+                <span class="w-2 h-2 rounded-full bg-gray-300 shrink-0 toc-dot transition-colors {% if item.level == 3 %}opacity-0{% endif %}"></span>
+                <span>{{ item.text }}</span>
+              </a>
+            {% endfor %}
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="container mx-auto px-4 py-20">
+    <div class="text-center py-20 max-w-md mx-auto">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+            </svg>
+        </div>
+        <h3 class="heading-20-semibold text-gray-900">Konten Belum Tersedia</h3>
+        <p class="paragraph-15 text-gray-500 mt-2">Halaman ini sedang tidak aktif atau belum tersedia saat ini.</p>
+    </div>
+</section>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById('toc-toggle-btn');
+    const menu = document.getElementById('toc-mobile-menu');
+    const chevron = document.getElementById('toc-chevron');
+    const mobileLinks = document.querySelectorAll('.toc-mobile-link');
+
+    if (toggleBtn && menu && chevron) {
+      toggleBtn.addEventListener('click', function () {
+        menu.classList.toggle('hidden');
+        chevron.classList.toggle('rotate-180');
+      });
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          menu.classList.add('hidden');
+          chevron.classList.remove('rotate-180');
+        });
+      });
+    }
+
+    // ScrollSpy for TOC Active State
+    const tocLinks = document.querySelectorAll('.toc-link, .toc-mobile-link');
+    const headings = document.querySelectorAll('.content-dynamic h2[id], .content-dynamic h3[id]');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      function setActiveToc(id) {
+        tocLinks.forEach(link => {
+          const isTarget = link.getAttribute('href') === '#' + id;
+          const dot = link.querySelector('.toc-dot');
+          if (isTarget) {
+            link.classList.add('text-brand-red', 'font-semibold');
+            link.classList.remove('text-gray-600');
+            if (dot) {
+              dot.classList.add('bg-brand-red');
+              dot.classList.remove('bg-gray-300');
+            }
+          } else {
+            link.classList.remove('text-brand-red', 'font-semibold');
+            link.classList.add('text-gray-600');
+            if (dot) {
+              dot.classList.remove('bg-brand-red');
+              dot.classList.add('bg-gray-300');
+            }
+          }
+        });
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveToc(entry.target.id);
+          }
+        });
+      }, {
+        rootMargin: '-10% 0px -60% 0px',
+        threshold: 0.1
+      });
+
+      headings.forEach(heading => observer.observe(heading));
+
+      // Highlight first by default if at top
+      setActiveToc(headings[0].id);
+    }
+  });
+</script>
