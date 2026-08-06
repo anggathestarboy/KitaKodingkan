@@ -1,74 +1,68 @@
-<footer class="bg-brand-red text-gray-400">
+
+<div class="h-10 w-full bg-gray-300"></div>
+
+<footer class="bg-white text-gray-800">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Top Footer -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-14 border-b border-white">
-
-            <div class="lg:col-span-1">
-                <span class="heading-24-bold text-white">Kita Kodingkan</span>
-                <p class="mt-4 text-gray-300 paragraph-14 leading-relaxed">
+        <div class="py-10 border-b border-gray-200">
+            <!-- Brand Info & Contact -->
+            <div class="max-w-xl mb-8">
+                <span class="heading-24-bold text-brand-red">Kita Kodingkan</span>
+                <p class="mt-3 text-gray-600 paragraph-14 leading-relaxed">
                     {{ 'footer.footer_tagline'|t }}
                 </p>
+                <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-2 paragraph-14">
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-gray-800 shrink-0"></i>
+                        <span class="text-gray-800">{{ 'footer.footer_contact_email'|t }}</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-gray-800 shrink-0"></i>
+                        <span class="text-gray-800">{{ 'footer.footer_contact_phone'|t }}</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-gray-800 shrink-0"></i>
+                        <span class="text-gray-800">{{ 'footer.footer_contact_address'|t }}</span>
+                    </li>
+                </ul>
+            </div>
 
-                <div class="flex items-center gap-4 mt-6">
-                    <a href="#" class="w-9 h-9 bg-gray-200 hover:bg-white text-gray-900 hover:text-brand-red rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
-                        <i class="fa-brands fa-instagram text-lg"></i>
-                    </a>
-                    <a href="#" class="w-9 h-9 bg-gray-200 hover:bg-white text-gray-900 hover:text-brand-red rounded-full flex items-center justify-center transition-colors" aria-label="LinkedIn">
-                        <i class="fa-brands fa-linkedin-in text-lg"></i>
-                    </a>
-                    <a href="#" class="w-9 h-9 bg-gray-200 hover:bg-white text-gray-900 hover:text-brand-red rounded-full flex items-center justify-center transition-colors" aria-label="TikTok">
-                        <i class="fa-brands fa-tiktok text-lg"></i>
-                    </a>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
+                <!-- Navigation Menu (Company Only) -->
+                <nav class="flex flex-wrap items-center gap-4 sm:gap-6 paragraph-14 font-semibold uppercase tracking-wider text-gray-800">
+                    <a href="{{ localeUrl('/tentang-kami') }}" class="hover:text-brand-red transition-colors">{{ 'footer.footer_company_about'|t }}</a>
+                    <span class="text-gray-300 hidden sm:inline">|</span>
+                    <a href="{{ localeUrl('/proyek') }}" class="hover:text-brand-red transition-colors">{{ 'footer.footer_company_portfolio'|t }}</a>
+                    <span class="text-gray-300 hidden sm:inline">|</span>
+                    <a href="{{ localeUrl('/blog') }}" class="hover:text-brand-red transition-colors">{{ 'footer.footer_company_blog'|t }}</a>
+                    <span class="text-gray-300 hidden sm:inline">|</span>
+                    <a href="{{ localeUrl('/hubungi-kami') }}" class="hover:text-brand-red transition-colors">{{ 'footer.footer_company_contact'|t }}</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-800 font-semibold paragraph-14 uppercase tracking-wider">IKUTI KAMI</span>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 bg-gray-100 hover:bg-brand-red text-gray-800 hover:text-white rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-gray-100 hover:bg-brand-red text-gray-800 hover:text-white rounded-full flex items-center justify-center transition-colors" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in text-lg"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-gray-100 hover:bg-brand-red text-gray-800 hover:text-white rounded-full flex items-center justify-center transition-colors" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div>
-                <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_services'|t }}</h3>
-                <ul class="space-y-3 paragraph-14">
-                    <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_web'|t }}</a></li>
-                    <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_mobile'|t }}</a></li>
-                    <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_uiux'|t }}</a></li>
-                    <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_system'|t }}</a></li>
-                    <li><a href="#" class="text-gray-200 transition-colors">{{ 'footer.footer_service_consult'|t }}</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_company'|t }}</h3>
-                <ul class="space-y-3 paragraph-14">
-                    <li><a href="{{ localeUrl('/tentang-kami') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_about'|t }}</a></li>
-                    <li><a href="{{ localeUrl('/proyek') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_portfolio'|t }}</a></li>
-                    <li><a href="{{ localeUrl('/blog') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_blog'|t }}</a></li>
-                    <li><a href="{{ localeUrl('/hubungi-kami') }}" class="text-gray-200 transition-colors">{{ 'footer.footer_company_contact'|t }}</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-white heading-16-semibold uppercase tracking-widest mb-5">{{ 'footer.footer_col_contact'|t }}</h3>
-                <ul class="space-y-4 paragraph-14">
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-envelope text-gray-200 mt-1 shrink-0"></i>
-                        <span class="text-gray-200">{{ 'footer.footer_contact_email'|t }}</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-phone text-gray-200 mt-1 shrink-0"></i>
-                        <span class="text-gray-200">{{ 'footer.footer_contact_phone'|t }}</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-location-dot text-gray-200 mt-1 shrink-0"></i>
-                        <span class="text-gray-200">{{ 'footer.footer_contact_address'|t }}</span>
-                    </li>
-                </ul>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 paragraph-14">
+            <p class="text-gray-800">{{ 'footer.footer_copyright'|t }}</p>
+            <div class="flex flex-wrap items-center gap-6">
+                <a href="{{ localeUrl('/kebijakan-privasi') }}" class="text-gray-800 hover:text-brand-red hover:underline transition-colors">{{ 'footer.footer_privacy'|t }}</a>
+                <a href="{{ localeUrl('/syarat-dan-ketentuan') }}" class="text-gray-800 hover:text-brand-red hover:underline transition-colors">{{ 'footer.footer_terms'|t }}</a>
             </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-6 paragraph-14">
-            <p class="text-white">{{ 'footer.footer_copyright'|t }}</p>
-            <div class="flex items-center gap-6">
-                <a href="{{ localeUrl('/kebijakan-privasi') }}" class="text-white transition-colors">{{ 'footer.footer_privacy'|t }}</a>
-                <a href="{{ localeUrl('/syarat-dan-ketentuan') }}" class="text-white transition-colors">{{ 'footer.footer_terms'|t }}</a>
-            </div>
-        </div>
     </div>
 </footer>

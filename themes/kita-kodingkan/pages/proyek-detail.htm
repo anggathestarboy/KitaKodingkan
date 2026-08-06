@@ -104,12 +104,8 @@ function onStart()
     $this['authorName'] = $attributes['author_name'] ?? $attributes['author'] ?? null;
 }
 ==
-<section class="relative overflow-hidden bg-gradient-to-br from-red-50 via-rose-50 to-red-100">
-    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-rose-100/60 blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -right-16 w-[28rem] h-[28rem] rounded-full bg-red-200/50 blur-3xl pointer-events-none"></div>
-    <svg class="absolute top-0 right-0 w-1/2 h-full text-white/40 pointer-events-none" viewBox="0 0 400 400" fill="none" preserveAspectRatio="none">
-        <path d="M400 0 L400 400 L0 400 Q200 300 250 150 Q300 50 400 0 Z" fill="currentColor"/>
-    </svg>
+<section class="relative overflow-hidden bg-gray-100">
+   
 
     <div class="relative container mx-auto px-4 pt-8 pb-16 md:pt-10 md:pb-20">
         <nav class="flex flex-wrap items-center gap-2 paragraph-14 text-gray-500 mb-10">
@@ -306,7 +302,7 @@ function onStart()
 
             <div class="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
              
-                <a href="{{ localeUrl('/kontak') }}" class="inline-flex items-center gap-2 heading-16-semibold bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 transition-all duration-200 hover:-translate-y-0.5">
+                <a href="{{ localeUrl('/hubungi-kami') }}" class="inline-flex items-center gap-2 heading-16-semibold bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 transition-all duration-200 hover:-translate-y-0.5">
                     Diskusikan Proyek Serupa
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

@@ -25,6 +25,8 @@ class RecreateTranslationsTable extends Migration
             ['header', 'nav_home', 'Beranda', 'Home'],
             ['header', 'nav_about', 'Tentang', 'About'],
             ['header', 'nav_privacy', 'Kebijakan', 'Privacy'],
+            ['header', 'nav_privacy_policy', 'Kebijakan Privasi', 'Privacy Policy'],
+            ['header', 'nav_terms', 'Syarat & Ketentuan', 'Terms & Conditions'],
             ['header', 'nav_services', 'Layanan', 'Services'],
             ['header', 'nav_projects', 'Proyek', 'Projects'],
             ['header', 'nav_blog', 'Blog', 'Blog'],
