@@ -6,13 +6,52 @@ meta_title = "Blog — Tips Digital untuk Bisnis | Kita Kodingkan"
 meta_description = "Artikel, tips, dan panduan seputar dunia digital untuk pemilik bisnis. Bahasa sederhana, langsung bisa dipraktikkan."
 ==
 <?php
+use ItsAnggara\Content\Models\News;
+use ItsAnggara\Content\Models\Category;
+
 function onStart()
 {
-    $allNews = \ItsAnggara\Content\Models\News::with('category')->orderBy('created_at', 'desc')->get();
+    $search   = trim((string) input('search'));
+    $category = (int) input('category');
 
-    $this['featured']  = $allNews->first();
-    $this['restNews']  = $allNews->slice(1);
-    $this['totalNews'] = $allNews->count();
+    $query = News::with('category');
+
+    if ($search !== '') {
+        $like = '%' . $search . '%';
+        $query->where(function ($q) use ($like) {
+            $q->where('title', 'like', $like)
+              ->orWhere('title_en', 'like', $like)
+              ->orWhere('description', 'like', $like)
+              ->orWhere('description_en', 'like', $like);
+        });
+    }
+
+    if ($category > 0) {
+        $query->where('category_id', $category);
+    }
+
+    $hasFilter = $search !== '' || $category > 0;
+    $featured  = null;
+
+    if (!$hasFilter) {
+        $featured = News::with('category')->orderBy('created_at', 'desc')->first();
+
+        if ($featured) {
+            $query->where('id', '!=', $featured->id);
+        }
+    }
+
+    $query->orderBy('created_at', 'desc');
+
+    $news = $query->paginate(6);
+    $news->appends(request()->query());
+
+    $this['featured']   = $featured;
+    $this['news']       = $news;
+    $this['categories'] = Category::orderBy('name')->get();
+    $this['search']     = $search;
+    $this['category']   = $category;
+    $this['hasFilter']  = $hasFilter;
 }
 ?>
 ==
@@ -61,18 +100,49 @@ function onStart()
 </section>
 {% endif %}
 
-{# ===================== GRID ARTIKEL LAINNYA ===================== #}
+{# ===================== GRID ARTIKEL LAINNYA + SEARCH/FILTER ===================== #}
 <section class="container mx-auto px-4 py-20">
-    {% if restNews|length > 0 %}
-        <div class="flex items-end justify-between mb-10">
+    {% if news|length > 0 %}
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
             <div>
-                <h2 class="heading-28-bold text-gray-900">Artikel Lainnya</h2>
-                <p class="paragraph-15 text-gray-500 mt-2">Jelajahi lebih banyak artikel yang kami tulis untuk Anda</p>
+                {% if hasFilter %}
+                    <h2 class="heading-28-bold text-gray-900">Hasil Pencarian</h2>
+                    <p class="paragraph-15 text-gray-500 mt-2">
+                        {{ news.total() }} artikel ditemukan untuk kata kunci dan filter yang dipilih
+                    </p>
+                {% else %}
+                    <h2 class="heading-28-bold text-gray-900">Artikel Lainnya</h2>
+                    <p class="paragraph-15 text-gray-500 mt-2">Jelajahi lebih banyak artikel yang kami tulis untuk Anda</p>
+                {% endif %}
             </div>
+
+            <form method="get" action="{{ localeUrl('/blog') }}" class="flex flex-col sm:flex-row items-stretch gap-3 w-full lg:w-auto">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="search" name="search" value="{{ search }}"
+                           placeholder="Cari artikel..."
+                           class="w-full sm:w-64 pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 paragraph-14 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent">
+                </div>
+                <select name="category"
+                        class="w-full sm:w-48 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 paragraph-14 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent">
+                    <option value="">Semua Kategori</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ cat | localized('name') }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn-primary paragraph-14-bold !px-5 whitespace-nowrap justify-center">
+                    <i class="fa-solid fa-filter"></i> Filter
+                </button>
+                {% if hasFilter %}
+                    <a href="{{ localeUrl('/blog') }}" class="btn-outline paragraph-14-bold !px-5 whitespace-nowrap justify-center">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </a>
+                {% endif %}
+            </form>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {% for news in restNews %}
+            {% for news in news %}
                 <a href="{{ localeUrl('/blog/' ~ news.id) }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="h-52 overflow-hidden bg-gray-100 relative">
                         {% if news.image_url %}
@@ -107,7 +177,9 @@ function onStart()
                 </a>
             {% endfor %}
         </div>
-    {% elseif featured is empty %}
+
+        {% partial 'site/pagination' paginator=news %}
+    {% else %}
         {# ===================== EMPTY STATE ===================== #}
         <div class="text-center py-20 max-w-md mx-auto">
             <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -115,8 +187,9 @@ function onStart()
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                 </svg>
             </div>
-            <h3 class="heading-20-semibold text-gray-900">Belum Ada Artikel</h3>
-            <p class="paragraph-15 text-gray-500 mt-2">Artikel kami sedang dalam proses, cek kembali nanti ya.</p>
+            <h3 class="heading-20-semibold text-gray-900">Tidak Ada Artikel</h3>
+            <p class="paragraph-15 text-gray-500 mt-2">Belum ada artikel yang cocok dengan pencarian atau filter kamu.</p>
+            <a href="{{ localeUrl('/blog') }}" class="btn-primary paragraph-14-bold !px-5 mt-6">Reset Pencarian</a>
         </div>
     {% endif %}
 </section>
