@@ -110,10 +110,10 @@ RichEditor.DEFAULTS={linksHandler:null,uploadHandler:null,stylesheet:null,fullpa
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}this.initFroala()}
 RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,uploadHandler:this.options.uploadHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
-if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}else{froalaOptions.toolbarButtons=$.wn.richEditorButtons}froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
+if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}else{froalaOptions.toolbarButtons=$.wn.richEditorButtons}froalaOptions.toolbarButtons=froalaOptions.toolbarButtons.filter(function(button){return['insertTable','html'].indexOf(button)===-1});froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
 froalaOptions.linkStyles=this.options.linkStyles?this.options.linkStyles:{'oc-link-green':'Green','oc-link-strong':'Thick'}
 froalaOptions.paragraphStyles=this.options.paragraphStyles?this.options.paragraphStyles:{'oc-text-gray':'Gray','oc-text-bordered':'Bordered','oc-text-spaced':'Spaced','oc-text-uppercase':'Uppercase'}
-froalaOptions.paragraphFormat=this.options.paragraphFormat?this.options.paragraphFormat:{'N':'Normal','H1':'Heading 1','H2':'Heading 2','H3':'Heading 3','H4':'Heading 4','PRE':'Code'}
+froalaOptions.paragraphFormat=this.options.paragraphFormat?this.options.paragraphFormat:{'N':'Normal','H2':'Heading 2','H3':'Heading 3','PRE':'Code'};froalaOptions.paragraphFormat=Object.keys(froalaOptions.paragraphFormat).filter(function(format){return['H1','H4','H5','H6'].indexOf(format)===-1}).reduce(function(result,format){result[format]=froalaOptions.paragraphFormat[format];return result},{})
 froalaOptions.tableStyles=this.options.tableStyles?this.options.tableStyles:{'oc-dashed-borders':'Dashed Borders','oc-alternate-rows':'Alternate Rows'}
 froalaOptions.tableCellStyles=this.options.tableCellStyles?this.options.tableCellStyles:{'oc-cell-highlighted':'Highlighted','oc-cell-thick-border':'Thick'}
 froalaOptions.toolbarButtonsMD=froalaOptions.toolbarButtons
@@ -214,4 +214,4 @@ return this}
 $(document).render(function(){$('[data-control="richeditor"]').richEditor()})
 if($.wn===undefined)$.wn={}
 if($.oc===undefined)$.oc=$.wn
-$.wn.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}(window.jQuery);
+$.wn.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen']}(window.jQuery);

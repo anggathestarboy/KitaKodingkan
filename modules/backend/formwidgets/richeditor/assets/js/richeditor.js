@@ -94,6 +94,10 @@
             froalaOptions.toolbarButtons = $.wn.richEditorButtons
         }
 
+        froalaOptions.toolbarButtons = froalaOptions.toolbarButtons.filter(function (button) {
+            return ['insertTable', 'html'].indexOf(button) === -1
+        })
+
         froalaOptions.imageStyles = this.options.imageStyles
             ? this.options.imageStyles
             : {
@@ -121,12 +125,19 @@
             ? this.options.paragraphFormat
             : {
               'N': 'Normal',
-              'H1': 'Heading 1',
               'H2': 'Heading 2',
               'H3': 'Heading 3',
-              'H4': 'Heading 4',
               'PRE': 'Code'
             }
+
+        froalaOptions.paragraphFormat = Object.keys(froalaOptions.paragraphFormat)
+            .filter(function (format) {
+                return ['H1', 'H4', 'H5', 'H6'].indexOf(format) === -1
+            })
+            .reduce(function (result, format) {
+                result[format] = froalaOptions.paragraphFormat[format]
+                return result
+            }, {})
 
         froalaOptions.tableStyles = this.options.tableStyles
             ? this.options.tableStyles
@@ -484,15 +495,13 @@
         'align',
         'formatOL',
         'formatUL',
-        'insertTable',
         'insertLink',
         'insertImage',
         'insertVideo',
         'insertAudio',
         'insertFile',
         'insertHR',
-        'fullscreen',
-        'html'
+        'fullscreen'
     ]
 
 }(window.jQuery);

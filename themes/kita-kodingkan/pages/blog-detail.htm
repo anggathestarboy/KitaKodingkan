@@ -292,6 +292,26 @@ function onStart()
                     </nav>
                 </div>
             </aside>
+        {% else %}
+            <aside class="lg:sticky lg:top-24 self-start">
+                <a href="{{ localeUrl('/proyek') }}" class="group block bg-brand-red border border-brand-red rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                    <div class="w-10 h-10 rounded-xl bg-white text-brand-red flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2z"/>
+                        </svg>
+                    </div>
+                    <h2 class="heading-16-bold text-white">Proyek Kami</h2>
+                    <p class="paragraph-14 text-white mt-2 leading-relaxed">
+                        Lihat berbagai proyek digital yang telah kami selesaikan untuk membantu bisnis Anda.
+                    </p>
+                    <span class="inline-flex items-center gap-2 paragraph-14-semibold text-white mt-6 group-hover:gap-3 transition-all duration-200">
+                        Lihat Proyek
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </span>
+                </a>
+            </aside>
         {% endif %}
 
         <div class="min-w-0">

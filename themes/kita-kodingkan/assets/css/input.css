@@ -197,6 +197,9 @@ html {
 .content-dynamic img {
     border-radius: 8px;
     margin: 20px 0;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 .content-dynamic > *:first-child {
     margin-top: 0;

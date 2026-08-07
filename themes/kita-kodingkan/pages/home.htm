@@ -91,7 +91,7 @@ function onStart()
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       {% for project in projects %}
-      <div class="card overflow-hidden cursor-pointer rounded-2xl group relative">
+      <a href="{{ localeUrl('/proyek/' ~ project.id) }}" class="card overflow-hidden rounded-2xl group relative block">
         <div class="h-64 sm:h-72 w-full overflow-hidden relative">
           <img 
             src="{{ project.image_url | media }}" 
@@ -103,7 +103,7 @@ function onStart()
             <h3 class="heading-20-bold text-white">{{ project | localized('name') }}</h3>
           </div>
         </div>
-      </div>
+      </a>
        {% endfor %}
     </div>
   </div>

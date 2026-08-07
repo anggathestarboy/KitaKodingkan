@@ -82,10 +82,8 @@ class EditorSetting extends Model
 
     protected $defaultHtmlParagraphFormats = [
         'N' => 'Normal',
-        'H1' => 'Heading 1',
         'H2' => 'Heading 2',
         'H3' => 'Heading 3',
-        'H4' => 'Heading 4',
         'PRE' => 'Code',
     ];
 
@@ -93,14 +91,13 @@ class EditorSetting extends Model
      * Editor toolbar presets for Froala.
      */
     protected $editorToolbarPresets = [
-        'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL, insertTable,
-                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertHR, html',
-        'minimal' => 'paragraphFormat, bold, italic, underline, |, insertLink, insertImage, |, html',
+        'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL,
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertHR',
+        'minimal' => 'paragraphFormat, bold, italic, underline, |, insertLink, insertImage',
         'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |,
                       strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color,
                       emoticons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR,
-                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, |, selectAll,
-                      html, fullscreen',
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, |, selectAll, fullscreen',
     ];
 
     /**
